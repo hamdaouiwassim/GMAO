@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="modal.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+    <title>Dashboard</title>
+</head>
+<body>
+        <div class="wcontainer">
+            <div class="wheader">
+                
+                <form class="searchform">
+                        <h1>WIGMAO</h1>
+                        
+                        <button class="lougout"><i class="fas fa-sign-out-alt"></i></button>
+                        
+                </form>
+            </div>
+            <div class="wsidebar">
+                <div class="profile">
+                    <img src="user.png" class="rounded">
+                    <h4>Hamdaoui wassim</h4>
+                    <h4>Administrateur</h4>
+                </div>
+                <div class="menu">
+                        <ul>
+                            <li><a href="#"> <i class="fas fa-users"></i> Utilisateurs </a></li>
+                            <li><a href="#"> <i class="fas fa-boxes"></i> Equipements </a></li>
+                            <li><a href="#"> <i class="fas fa-sign-out-alt"></i> Demande Intervention </a></li>
+                            <li><a href="#"> <i class="fas fa-sign-out-alt"></i> Maintenance Preventif </a></li>
+                        </ul>
+        
+                </div>
+            </div>
+            <div class="wmaincontent">
+                <div class="wtitle">
+                   <i class="fas fa-users"></i> les utilisateurs 
+                   <button id="myBtn" class="adduser">Ajouter</button>
+                </div>
+                <div class="searchuser">
+                    <form>
+                        <input type="text" name="username" placeholder="taper un nom utilisateur içi ...">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="datauser">
+                    <table>
+                        <thead>
+                            <th>Nom</th>
+                            <th>Role</th>
+                            <th>Date d'ajout</th>
+                            
+                        </thead>
+                        <tbody>
+                           <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               
+                           </tr> 
+                             <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               <td></td>
+                           </tr> 
+                             <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               
+                           </tr> 
+                             <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               
+                           </tr> 
+                            <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               
+                           </tr> 
+                             <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               <td></td>
+                           </tr> 
+                             <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               
+                           </tr> 
+                             <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               
+                           </tr> 
+                            <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               
+                           </tr> 
+                             <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               <td></td>
+                           </tr> 
+                             <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               
+                           </tr> 
+                             <tr>
+                               <td>Hamdaoui wassim</td>
+                               <td>Administrateur</td>
+                               <td>12/12/2019</td>
+                               
+                           </tr> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+<!-- The Modal Add User  -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <form>
+    <span class="close">&times;</span>
+    <div class="modal-header">
+        <h3>Ajouter un utilisateur</h3>
+    </div>
+    <hr>
+    <div class="modal-main">
+        <div class="inputGroupe">
+            <label> Nom utilisateur </label>
+            <input type="text" name="username">
+            
+        </div>
+        <div class="inputGroupe">
+            <label> Email utilisateur </label>
+            <input type="email" name="usermail">
+            
+        </div>
+        <div class="inputGroupe">
+            <label> Role utilisateur </label>
+            <select>
+                <option></option>
+                <option>Administrateur</option>
+                <option>Chef Secteur</option>
+                <option>Chef Service</option>
+                <option>Technicien</option>
+            </select>
+        </div>
+            
+        
+    </div>
+    <hr>
+    <div class="modal-footer">
+        <input type="submit" value="Ajouter">
+    </div>
+    </form>
+  </div>
+
+</div>
+
+  <!-- Place your kit's code here -->
+    <script src="https://kit.fontawesome.com/0d7402bca0.js"></script>
+    <script src="modal.js"></script>
+</body>
+</html>

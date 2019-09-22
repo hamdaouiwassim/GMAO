@@ -1,0 +1,74 @@
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: none; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.modal-header,.modal-main{
+  
+}
+.inputGroupe{
+  width:100%;
+  margin:20px;
+  font-size:18px;
+}
+.inputGroupe label{
+  min-width:300px;
+}
+.inputGroupe input,.inputGroupe select{
+  min-width:350px;
+  font-size:18px;
+  padding:5px 10px;
+}
+
+.modal-footer{
+text-align: right;
+}
+.modal-footer input{
+  cursor: pointer;
+  border:1px solid #3498db;
+  background-color: #3498db;
+  color:white;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+}
+.modal-footer input:hover{
+  border:1px inset #3498db;
+  background-color: #3498db;
+  color:white;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+}
