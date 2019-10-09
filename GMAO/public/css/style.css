@@ -211,10 +211,17 @@ font-size:20px;
 }
 
 .datauser{
-
+    display: block;
     padding:25px;
     margin:0;
     width:100%;
+}
+.whitediv{
+    display: block;
+    margin:10px;
+    width:100%;
+    background-color:white;
+    padding: 10px;
 }
 .datauser table{
     border:none;
@@ -231,14 +238,13 @@ box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
     border-bottom: 2px solid #3498db;
 }
 .datauser table tbody tr td{
-   margin:-5px;
-   padding:10px;
+  
+   padding:15px;
    text-align: center;
 }
 
 .datauser table tbody tr:hover{
-     background-color:#3498db;
-     color:white;
+     background-color:rgba(52, 152, 219,.1);
      cursor:pointer;
 }
 
@@ -252,4 +258,173 @@ box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
 
 .inputGroupe{
     display: flex;
+}
+.inputGroupe textarea{
+    width:350px;
+    font-size:18px;
+}
+.searchuser form input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-size:14px;
+}
+.searchuser form input::-moz-placeholder { /* Firefox 19+ */
+  font-size:14px;
+}
+.searchuser form input:-ms-input-placeholder { /* IE 10+ */
+  font-size:14px;
+}
+.searchuser form input:-moz-placeholder { /* Firefox 18- */
+  font-size:14px;
+}
+
+div.errors{
+    z-index:10;
+    position:fixed;
+    top:10px;
+    right:40%;
+    padding:8px 50px;
+    background-color:#f39c12;
+    color:white;
+    font-size: 12px
+}
+
+.emptydata{
+    background-color: white;
+    padding: 20px;
+
+}
+.actionbtn{
+    padding:5px 15px;
+    margin:6px;
+    background-color:#32323a;
+    color:white;
+    border-radius: 5px;
+    
+}
+
+.loginbtn{
+    background-color: white;
+    padding: 10px;
+    color:#32323a;
+    text-decoration:none;
+    border-radius: 10px;
+    position:absolute;
+    top:10px;
+    right:10px;
+}
+
+.logindiv{
+    background-color: white;
+    padding: 20px;
+    width:60%;
+    margin: 50px auto;
+}
+.logindiv{
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+}
+.loginbtnform{
+    font-size:18px;
+    border:none;
+    color: white;
+    padding: 10px;
+    background-color:#32323a;
+    text-decoration:none;
+    border-radius: 10px;
+    
+}
+.forgetlink{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.card-equipement{
+
+    padding:10px;
+    float:left;
+    border:1px solid #b2bec3;
+    width:30%;
+    margin:1.5%;
+}
+.card-equipement:hover{
+    cursor: pointer;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+}
+.card-equipement .image{
+    width:100%;
+    height:100px;
+
+background-repeat: no-repeat;
+background-size:cover;
+
+}
+.image{
+border:2px solid #636e72;
+margin-right:10px;
+margin-bottom:20px;
+float:left;
+width:50%;
+height: 180px;
+background-repeat: no-repeat;
+background-size:cover;
+
+}
+.card-equipement h3{
+    margin:0px;
+    text-align: center;
+    background-color:#3498db;
+    padding:5px;
+    color:white;
+}
+.card-equipement h5{
+    margin:0px;
+    text-align: center;
+    background-color:#ff7675;
+    padding:8px;
+    color:white;
+}
+.card-equipement p{
+    margin:0px;
+    background-color:#636e72;
+    padding:8px;
+    color:white;
+}
+
+
+.btnsubmit{
+    
+    position: relative;
+    bottom:10px;
+    left:90%;
+    cursor: pointer;
+    border: 1px solid #3498db;
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+.listhome{
+    margin-bottom:50px;
+}
+.listhome li {
+margin-top:10px;
+}
+.dashboardbtn{
+    margin:50px;
+    text-decoration: none;
+    background-color:#576574 ;
+    color:white;
+    padding:20px;
+}
+
+.allfunctions{
+    padding: 20px;
+    width:100%;
+}
+.allfunctions .gusers{
+    width:50%;
+    float:left;    
 }

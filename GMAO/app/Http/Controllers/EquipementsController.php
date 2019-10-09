@@ -1,8 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\User;
+use App\Equipement;
+use App\Activite;
+use Auth;
+use File;
+
 
 class EquipementsController extends Controller
 {
@@ -13,8 +20,20 @@ class EquipementsController extends Controller
      */
     public function index()
     {
-        //
-        return view('Equipements.index');
+         //
+         $equipements = Equipement::all();
+         return view('Equipements.index')->with('equipements',$equipements);
+    }
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function filter(Request $request)
+    {
+         //
+         $equipements = Equipement::where("name",'like','%'.$request->input("searchequipement").'%')->get();
+         return view('Equipements.index')->with('equipements',$equipements);
     }
 
     /**
@@ -25,6 +44,7 @@ class EquipementsController extends Controller
     public function create()
     {
         //
+        return view('equipements.ajout');
     }
 
     /**
@@ -35,7 +55,45 @@ class EquipementsController extends Controller
      */
     public function store(Request $request)
     {
+        $photo = $request->file('photo');
+        $document = $request->file('document');
+   
+        //Display File Name
+        //echo 'File Name: '.$file->getClientOriginalName();
+        //Display File Extension
+        //echo 'File Extension: '.$file->getClientOriginalExtension();
+        //Display File Real Path
+        //echo 'File Real Path: '.$file->getRealPath();
+        //Display File Size
+        //echo 'File Size: '.$file->getSize();
+        //Display File Mime Type
+        //echo 'File Mime Type: '.$file->getMimeType();
+        //Move Uploaded File
+        $photoname = uniqid().".".File::extension($photo->getClientOriginalName());
+        //uniqid() is php function to generate uniqid but you can use time() etc.
+        $destinationPath = 'uploads/photos';
+        $photo->move($destinationPath,$photoname);
+
+        $documentname = uniqid().".".File::extension($document->getClientOriginalName());
+        //uniqid() is php function to generate uniqid but you can use time() etc.
+        $destinationPath = 'uploads/documents';
+        $document->move($destinationPath,$documentname);
+        
         //
+        $equipement = new Equipement();
+        $equipement->name=$request->input("name");
+        $equipement->marque=$request->input("marque");
+        $equipement->modele=$request->input("modele");
+        $equipement->description=$request->input("description");
+        $equipement->numero=$request->input("numero");
+        $equipement->emplacement=$request->input("emplacement");
+        $equipement->photo=$photoname;
+        $equipement->document = $documentname;
+        $equipement->save();
+
+        return redirect('/equipements');
+        
+        
     }
 
     /**
@@ -47,6 +105,8 @@ class EquipementsController extends Controller
     public function show($id)
     {
         //
+        $equipement = Equipement::find($id);
+        return view('Equipements.equipement')->with('equipement',$equipement); 
     }
 
     /**
@@ -58,6 +118,8 @@ class EquipementsController extends Controller
     public function edit($id)
     {
         //
+        $equipement = Equipement::find($id);
+        return view('Equipements.modifier')->with('equipement',$equipement); 
     }
 
     /**
@@ -70,6 +132,42 @@ class EquipementsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $photo = $request->file('photo');
+        $document = $request->file('document');
+        $equipement = Equipement::find($id);
+        $equipement->name=$request->input("name");
+        $equipement->marque=$request->input("marque");
+        $equipement->modele=$request->input("modele");
+        $equipement->description=$request->input("description");
+        $equipement->numero=$request->input("numero");
+        $equipement->emplacement=$request->input("emplacement");
+        if ($photo != NULL){
+               
+                $photoname = uniqid().".".File::extension($photo->getClientOriginalName());
+                //uniqid() is php function to generate uniqid but you can use time() etc.
+                $destinationPath = 'uploads/photos';
+                $photo->move($destinationPath,$photoname);
+                $equipement->photo=$photoname;
+        }
+
+        if ($document != NULL){  
+               
+                $documentname = uniqid().".".File::extension($document->getClientOriginalName());
+                //uniqid() is php function to generate uniqid but you can use time() etc.
+                $destinationPath = 'uploads/documents';
+                $document->move($destinationPath,$documentname);
+                $equipement->document = $documentname;
+        
+        }
+        
+        $equipement->update();
+        $activite = new Activite();
+        $activite->iduser = Auth::user()->id;
+        $activite->description = "modifier l'equipement ".$request->input("name");
+        $activite->save();
+        return redirect("/equipement/".$equipement->id);
+       
+
     }
 
     /**
@@ -81,5 +179,8 @@ class EquipementsController extends Controller
     public function destroy($id)
     {
         //
+        $equipement = Equipement::find($id);
+        $equipement->delete();
+        return redirect('/equipements');
     }
 }

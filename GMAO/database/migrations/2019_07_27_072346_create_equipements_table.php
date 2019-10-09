@@ -20,9 +20,11 @@ class CreateEquipementsTable extends Migration
             $table->string('name');
             $table->string('modele')->unique();
             $table->string('marque');
+            $table->string('numero');
             $table->string('emplacement');
             $table->string('photo');
-            $table->string('description');
+            $table->text('description');
+            $table->string('document');
             $table->rememberToken();
             $table->timestamps();
         });
