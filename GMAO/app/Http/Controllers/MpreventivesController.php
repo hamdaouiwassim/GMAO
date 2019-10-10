@@ -16,6 +16,12 @@ class MpreventivesController extends Controller
         $mpreventives = Mpreventive::all();
         return view('mpreventives.index')->with('mpreventives',$mpreventives)->with('equipements',$equipements)->with('users',$users);
     }
+    public function filter(Request $request){
+        $users = User::all();
+        $equipements = Equipement::all();
+        $mpreventives = Mpreventive::where("numero",'like','%'.$request->input("searchmp").'%')->get();
+        return view('mpreventives.index')->with('mpreventives',$mpreventives)->with('equipements',$equipements)->with('users',$users);
+    }
     public function store(Request $request){
         $intervalle = $request->input("intervalle");
         $datedebut = $request->input("date_debut");

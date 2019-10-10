@@ -14,10 +14,10 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				<form action="#" method="POST" class="navbar-form navbar-left">
+				<form action="/oi/filter" method="POST" class="navbar-form navbar-left">
                     {{ csrf_field() }} 
 					<div class="input-group">
-						<input type="text" name="searchuser" class="form-control" placeholder="Chercher une demande d'intervention...">
+						<input type="text" name="searchoi" class="form-control" placeholder="Chercher une demande d'intervention...">
 						<span class="input-group-btn"><button type="submit" class="btn btn-primary">chercher</button></span>
 					</div>
 				</form>
@@ -217,7 +217,7 @@
                                                         
                                                         <td>
 														@if ($oi->etat == "En attente de validation")
-														<a href="/" class="btn btn-success">Valider</a>
+														<a href="/di/valider/{{ $oi->id }}" class="btn btn-success">Valider</a>
 														@endif
 														
 														</td>
@@ -235,7 +235,7 @@
 								<div class="panel-footer">
 									<div class="row">
 										<div class="col-md-6"></div>
-										<div class="col-md-6 text-right"><a href="/users" class="btn btn-primary">Effacer la recherche</a></div>
+										<div class="col-md-6 text-right"><a href="/di" class="btn btn-primary">Effacer la recherche</a></div>
 									</div>
 								</div>
 							</div>

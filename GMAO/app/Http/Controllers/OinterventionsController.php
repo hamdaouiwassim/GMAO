@@ -84,6 +84,20 @@ class OinterventionsController extends Controller
         return view('dmdinterventions.observation')->with('oi',$oi);
 
     }
+    public function valider($id){
+        $oi = Ointervention::find($id);
+        $oi->etat = "Terminé";
+        $oi->update();
+        return redirect('/di');
+
+    }
+    public function filter(Request $request){
+        $users = User::all();
+        $equipements = Equipement::all();
+        $ointerventions = Ointervention::where("numero",'like','%'.$request->input("searchoi").'%')->get();
+        return view('dmdinterventions.index')->with('ointerventions',$ointerventions)->with('equipements',$equipements)->with('users',$users);
+
+    }
     public function addobservationoi(Request $request , $id){
         $oi = Ointervention::find($id);
         $numero = $oi->numero;

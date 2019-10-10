@@ -70,7 +70,7 @@
                         <li><a href="/home" ><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 						<li><a href="/profile" ><i class="lnr lnr-user"></i> <span>Compte</span></a></li>
 						<li>
-                         <a class="active" href="#subusers" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Utilisateurs</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                         <a  href="#subusers" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Utilisateurs</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							
                             <div id="subusers" class="collapse ">
 								<ul class="nav">
@@ -126,7 +126,19 @@
                             <a href="/pm" class=""><i class="lnr lnr-calendar-full"></i> <span>Plan de maintenance</span></a>
 							</li>
 							<li>
-							<a href="/pm" class=""><i class="lnr lnr-license"></i> <span>Contrat de maintenance</span></a></li>
+							<a href="#subcm" class="active" data-toggle="collapse" class="collapsed"><i class="lnr lnr lnr-license"></i> <span>Contrats maintenance</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							
+                             <div id="subcm" class="collapse ">
+								<ul class="nav">
+								@if (Auth::user()->role == "Administrateur")
+									<li> <a href="/cm/add" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
+								@endif
+									<li> <a href="/cm" class=""><i class="lnr lnr-list"></i> Liste</a></li>
+									
+								</ul>
+							</div>
+						</li>
+
 						
 					</ul>
 				</nav>
@@ -141,7 +153,7 @@
 					<!-- OVERVIEW -->
 					<div class="panel panel-headline">
 						<div class="panel-heading">
-                            <h3 class="panel-title"><i class="lnr lnr-users"></i> Gestion des utilisateurs</h3>
+                            <h3 class="panel-title"><i class="lnr lnr-license"></i> Contrats du maintenance </h3>
 							<p class="panel-subtitle">Aujourd'hui : <?php echo date('M')." ".date('d')." , ".date('Y'); ?> </p>
 						</div>
 						<div class="panel-body">
@@ -150,7 +162,7 @@
 							<!-- TABLE STRIPED -->
 							<div class="panel">
 								<div class="panel-heading">
-									<h3 class="panel-title">@isset($searchuser) Resultat de recherche pour : <span class="text-primary"> " {{ $searchuser }} "</span> @else Liste des utilisateurs @endisset </h3>
+									<h3 class="panel-title">@isset($searchuser) Resultat de recherche pour : <span class="text-primary"> " {{ $searchuser }} "</span> @else Liste des contrats du maintenance @endisset </h3>
 								</div>
 								<div class="panel-body">
 								@if( session()->get( 'adduser' ) == "deleted" )
@@ -164,27 +176,37 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Nom</th>
-                                                        <th>Matricule</th>
-                                                        <th>Role</th>
-														<th>Date d'ajout</th>
-														@if (Auth::user()->role == "Administrateur")
-														<th>Action</th>
-														@endif
+                                                        <th>Societe</th>
+                                                        <th>Ordre du travaille</th>
+														<th>Date du contrat</th>
+														
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                 <?php $i=0; ?>
-                                                @foreach($users as $user)
+                                                @foreach($contrats as $contrat)
                                                 <?php $i++; ?>
                                                 <tr>
                                                     <td>{{ $i }}</td>
-                                                    <td>{{ $user->name }}</td>
-                                                    <td>{{ $user->matricule }}</td>
-                                                    <td>{{ $user->role }}</td>
-													<td>{{ $user->created_at }}</td>
-													@if (Auth::user()->role == "Administrateur")
-                                                    <td><a class='btn btn-primary' href="/user/{{$user->id}}"><i class="lnr lnr-pencil"></i> Modifier </a> <a class='btn btn-danger' href="/user/delete/{{ $user->id }}"><i class="lnr lnr-trash"></i>Supprimer</a></td>
-                                                    @endif
+                                                    <td>{{ $contrat->name }}</td>
+                                                    <td>{{ $contrat->societe }}</td>
+                                                    <td>
+														@if ( $contrat->type == "oi")
+																@foreach( $interventions as $oi )
+																	@if ($oi->id == $contrat->maintenance )
+																		{{ $oi->numero }}
+																	@endif 
+																@endforeach
+														@else
+																@foreach( $mpreventives  as $mp )
+																	@if ($mp->id == $contrat->maintenance )
+																		{{ $mp->numero }}
+																	@endif 
+																@endforeach
+														@endif
+													</td>
+													<td>{{ $contrat->created_at }}</td>
+													
                                                 </tr>
                                                 @endforeach 
                                                 </tbody>
@@ -196,7 +218,7 @@
 								<div class="panel-footer">
 									<div class="row">
 										<div class="col-md-6"></div>
-										<div class="col-md-6 text-right"><a href="/users" class="btn btn-primary">Effacer la recherche</a></div>
+										<div class="col-md-6 text-right"><a href="/cm" class="btn btn-primary">Effacer la recherche</a></div>
 									</div>
 								</div>
 							</div>

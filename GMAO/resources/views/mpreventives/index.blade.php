@@ -14,10 +14,10 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				<form action="/user/filter" method="POST" class="navbar-form navbar-left">
+				<form action="/mp/filter" method="POST" class="navbar-form navbar-left">
                     {{ csrf_field() }} 
 					<div class="input-group">
-						<input type="text" name="searchuser" class="form-control" placeholder="Chercher une maintenance preventif...">
+						<input type="text" name="searchmp" class="form-control" placeholder="Chercher une maintenance preventif...">
 						<span class="input-group-btn"><button type="submit" class="btn btn-primary">chercher</button></span>
 					</div>
 				</form>
@@ -208,7 +208,7 @@
 								<div class="panel-footer">
 									<div class="row">
 										<div class="col-md-6"></div>
-										<div class="col-md-6 text-right"><a href="/users" class="btn btn-primary">Effacer la recherche</a></div>
+										<div class="col-md-6 text-right"><a href="/mp" class="btn btn-primary">Effacer la recherche</a></div>
 									</div>
 								</div>
 							</div>

@@ -118,7 +118,7 @@
 						    <li>
                             <a class="active" href="/pm" class=""><i class="lnr lnr-calendar-full"></i> <span>Plan de maintenance</span></a></li>
 							<li>
-							<a href="/pm" class=""><i class="lnr lnr-license"></i> <span>Contrat de maintenance</span></a>
+							<a href="/cm" class=""><i class="lnr lnr-license"></i> <span>Contrat de maintenance</span></a>
 							</li>
 					</ul>
 				</nav>
@@ -207,8 +207,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		@foreach($ointerventions as $oi)
         {
           title: '{{ $oi->numero }}',
-          start: '{{ $oi->created_at }}',
-		  url : "/di/{{ $oi->id  }}"
+          start: '{{ $oi->created_at }}'
+		
         },
 		@endforeach
 		
@@ -219,8 +219,8 @@ document.addEventListener('DOMContentLoaded', function() {
 					title: '{{ $mp->numero }}',
 				@endif
 			@endforeach
-          start: '{{ $maintenance->date_maintenance }}',
-		  url : "/m/{{ $maintenance->id  }}"
+          start: '{{ $maintenance->date_maintenance }}'
+		  
         },
 		@endforeach
       ]

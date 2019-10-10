@@ -46,7 +46,10 @@ Route::post('/modequipement/{id}','EquipementsController@update')->middleware('a
 Route::get('/di','OinterventionsController@index')->middleware('auth');
 Route::get('/di/add','OinterventionsController@create')->middleware('auth');
 Route::post('/addoi','OinterventionsController@store')->middleware('auth');
+Route::post('/oi/filter','OinterventionsController@filter')->middleware('auth');
 Route::get('/di/{id}','OinterventionsController@show')->middleware('auth');
+Route::get('/di/valider/{id}','OinterventionsController@valider')->middleware('auth');
+
 
 Route::get('/ot/{id}','OinterventionsController@ordretravaille')->middleware('auth');
 Route::get('/otoi/show/{id}','OinterventionsController@ordretravailleshow')->middleware('auth');
@@ -65,6 +68,10 @@ Route::get('/mp/show/{id}','MpreventivesController@show')->middleware('auth');
 Route::get('/m/{id}','MaintenancesController@show')->middleware('auth');
 Route::get('/mp/add','MpreventivesController@create')->middleware('auth');
 Route::post('/addmp','MpreventivesController@store')->middleware('auth');
+Route::post('/mp/filter','MpreventivesController@filter')->middleware('auth');
 
 /* plan maintenance route */
 Route::get('/pm','PlanmaintenancesController@index')->middleware('auth');
+
+/* Contrats du maintenance route */
+Route::get('/cm','ContratsController@index')->middleware('auth');
