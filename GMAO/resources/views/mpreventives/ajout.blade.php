@@ -109,8 +109,19 @@
                              </li>
 						    <li>
                             <a href="/pm" class=""><i class="lnr lnr-calendar-full"></i> <span>Plan de maintenance</span></a></li>
-							<li><a href="/pm" class=""><i class="lnr lnr-license"></i> <span>Contrat de maintenance</span></a>
-							</li>
+							<li>
+								
+							<a href="#subcm"  data-toggle="collapse" class="collapsed"><i class="lnr lnr lnr-license"></i> <span>Contrats maintenance</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							
+							<div id="subcm" class="collapse ">
+							   <ul class="nav">
+							   @if (Auth::user()->role == "Administrateur")
+								   <li> <a href="/cm" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
+							   @endif
+								   <li> <a href="/cm" class=""><i class="lnr lnr-list"></i> Liste</a></li>
+								   
+							   </ul>
+						   </div></li>
 					</ul>
 				</nav>
 			</div>

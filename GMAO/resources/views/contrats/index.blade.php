@@ -14,11 +14,11 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				<form action="/user/filter" method="POST" class="navbar-form navbar-left">
+				<form action="#" method="POST" class="navbar-form navbar-left">
                     {{ csrf_field() }} 
 					<div class="input-group">
 						<input type="text" name="searchuser" class="form-control" placeholder="Chercher un utilisateur...">
-						<span class="input-group-btn"><button type="submit" class="btn btn-primary">chercher</button></span>
+						<span class="input-group-btn"><button type="button" class="btn btn-primary">chercher</button></span>
 					</div>
 				</form>
 				
@@ -131,7 +131,7 @@
                              <div id="subcm" class="collapse ">
 								<ul class="nav">
 								@if (Auth::user()->role == "Administrateur")
-									<li> <a href="/cm/add" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
+									<li> <a href="/cm" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
 								@endif
 									<li> <a href="/cm" class=""><i class="lnr lnr-list"></i> Liste</a></li>
 									
