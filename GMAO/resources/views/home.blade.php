@@ -22,19 +22,44 @@
 
 			<div id="navbar-menu">
 				<ul class="nav navbar-nav navbar-right">
+					
+				<li class="dropdown">
+						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+							<i class="lnr lnr-envelope"></i>
+							
+						@if( count($notifications) > 0 ) 
+							<span class="badge bg-danger">{{ count($notifications) }} </span>
+							@endif 
+						</a>
+						
+						@if( count($notifications) > 0 ) 
+						<ul class="dropdown-menu notifications">
+							@foreach ($notifications as $not )
+							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a></li>
+							@endforeach
+							
+						</ul>
+				
+						@endif 		
+					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
 							<i class="lnr lnr-alarm"></i>
-							<span class="badge bg-danger">5</span>
+							
+						@if( count($notifications) > 0 ) 
+							<span class="badge bg-danger">{{ count($notifications) }} </span>
+							@endif 
 						</a>
+						
+						@if( count($notifications) > 0 ) 
 						<ul class="dropdown-menu notifications">
-							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
-							<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-							<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
-							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-							<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
-							<li><a href="#" class="more">See all notifications</a></li>
+							@foreach ($notifications as $not )
+							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a></li>
+							@endforeach
+							
 						</ul>
+				
+						@endif 		
 					</li>
 
 					<li class="dropdown">
@@ -94,7 +119,20 @@
 							</ul>
 						</div>
 					</li>
+					
+					<li>
+						<a href="#subdepartments" data-toggle="collapse" class="collapsed"><i class="lnr lnr-store"></i> <span>Departements</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 
+						<div id="subdepartments" class="collapse ">
+							<ul class="nav">
+								@if (Auth::user()->role == "Administrateur")
+								<li> <a href="/departement/add" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
+								@endif
+								<li> <a href="/departements" class=""><i class="lnr lnr-list"></i> Liste</a></li>
+
+							</ul>
+						</div>
+					</li>
 					<li>
 						<a href="#subdi" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Demande intervention</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 
@@ -135,8 +173,9 @@
 								   <li> <a href="/cm" class=""><i class="lnr lnr-list"></i> Liste</a></li>
 								   
 							   </ul>
-						   </div></li>
-
+						   </div>
+						</li>
+						
 				</ul>
 			</nav>
 		</div>

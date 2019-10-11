@@ -75,3 +75,15 @@ Route::get('/pm','PlanmaintenancesController@index')->middleware('auth');
 
 /* Contrats du maintenance route */
 Route::get('/cm','ContratsController@index')->middleware('auth');
+
+
+/* Messages Route */
+
+Route::get('/messages',"MessagesController@index")->middleware('auth');
+
+/* Departments routes */
+
+Route::get('/department/create',"DepartmentsController@create")->middleware('auth');
+Route::post('/department/add',"DepartmentsController@add")->middleware('auth');
+
+Route::get('/departments',"DepartmentsController@index")->middleware('auth');

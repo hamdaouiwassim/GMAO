@@ -10,6 +10,7 @@ use App\Equipement;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use App\Notification;
 
 class OinterventionsController extends Controller
 {
@@ -85,9 +86,18 @@ class OinterventionsController extends Controller
 
     }
     public function valider($id){
+        
         $oi = Ointervention::find($id);
         $oi->etat = "Terminé";
         $oi->update();
+        
+        $notification = new Notification();
+        $notification->content ="Ordre de travaille ".$oi->numero." validé par ".Auth::user()->name;
+        $notification->touser = "Administrateur" ;
+        //$notification->iduser = ;
+        $notification->stat ="unseen";
+        $notification->save();
+        
         return redirect('/di');
 
     }
@@ -108,7 +118,7 @@ class OinterventionsController extends Controller
         $oi->update();
         $ac = new Activite();
         $ac->iduser = Auth::user()->id;
-        $ac->description = "valider la demande d'intervention".$numero;
+        $ac->description = "valider la demande d'intervention ".$numero;
         $ac->save();
         return redirect('/homet');
         //return view('dmdinterventions.observation');
