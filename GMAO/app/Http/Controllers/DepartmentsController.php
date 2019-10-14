@@ -30,4 +30,11 @@ class DepartmentsController extends Controller
         return redirect('/departments');
         
     }
+    public function change($id){
+        $department = Department::find($id);
+        return view('departments.mod')->with('department',$department);
+    }
+    public function update(Request $request){
+
+    }
 }

@@ -22,26 +22,24 @@
 
 			<div id="navbar-menu">
 				<ul class="nav navbar-nav navbar-right">
-					
 				<li class="dropdown">
 						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
 							<i class="lnr lnr-envelope"></i>
 							
-						@if( count($notifications) > 0 ) 
-							<span class="badge bg-danger">{{ count($notifications) }} </span>
-							@endif 
+						
+							<span class="badge bg-danger"> 2 </span>
+							 
 						</a>
 						
-						@if( count($notifications) > 0 ) 
+						
 						<ul class="dropdown-menu notifications">
-							@foreach ($notifications as $not )
-							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a></li>
-							@endforeach
-							
+							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>jhbzfqsghjq kjjsqhvfiu </a></li>
+							<li><a href="/messages" class="more">Ouvrir la boite de messagerie</a></li>
 						</ul>
 				
-						@endif 		
+						
 					</li>
+			
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
 							<i class="lnr lnr-alarm"></i>
@@ -126,9 +124,9 @@
 						<div id="subdepartments" class="collapse ">
 							<ul class="nav">
 								@if (Auth::user()->role == "Administrateur")
-								<li> <a href="/departement/add" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
+								<li> <a href="/department/create" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
 								@endif
-								<li> <a href="/departements" class=""><i class="lnr lnr-list"></i> Liste</a></li>
+								<li> <a href="/departments" class=""><i class="lnr lnr-list"></i> Liste</a></li>
 
 							</ul>
 						</div>

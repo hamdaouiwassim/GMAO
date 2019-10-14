@@ -76,6 +76,10 @@ Route::get('/pm','PlanmaintenancesController@index')->middleware('auth');
 /* Contrats du maintenance route */
 Route::get('/cm','ContratsController@index')->middleware('auth');
 
+Route::get('/cm/create','ContratsController@create')->middleware('auth');
+
+Route::post('/addcontrat','ContratsController@add')->middleware('auth');
+
 
 /* Messages Route */
 
@@ -85,5 +89,6 @@ Route::get('/messages',"MessagesController@index")->middleware('auth');
 
 Route::get('/department/create',"DepartmentsController@create")->middleware('auth');
 Route::post('/department/add',"DepartmentsController@add")->middleware('auth');
-
+Route::post('/department/mod',"DepartmentsController@update")->middleware('auth');
+Route::get('/department/change/{id}',"DepartmentsController@change")->middleware('auth');
 Route::get('/departments',"DepartmentsController@index")->middleware('auth');

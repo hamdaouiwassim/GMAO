@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth;
 use App\Activite;
+use App\Department;
 use File;
 
 use Illuminate\Support\Carbon;
@@ -53,7 +54,8 @@ class UsersController extends Controller
     public function create()
     {
         //
-        return view('users.ajout');
+        $departments = Department::all();
+        return view('users.ajout')->with('departments',$departments);
     }
 
     /**
@@ -80,6 +82,7 @@ class UsersController extends Controller
         $user->email = $request->input("usermail");
         $user->password = Hash::make($request->input("userpw"));
         $user->role =  $request->input("role");
+        $user->iddep =  $request->input("iddep");
         $user->save();
         $activite = new Activite();
         $activite->iduser = Auth::user()->id;
@@ -89,7 +92,7 @@ class UsersController extends Controller
     }
     public function modprofile(Request $request){
       
-      
+        
         $user = User::find(Auth::user()->id);
         $user->name = $request->input("username") ;
         $user->matricule = $request->input("usermat") ;

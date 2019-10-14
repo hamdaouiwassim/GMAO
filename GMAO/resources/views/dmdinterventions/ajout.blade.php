@@ -18,6 +18,23 @@
 				
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+							<i class="lnr lnr-envelope"></i>
+							
+						
+							<span class="badge bg-danger"> 2 </span>
+							 
+						</a>
+						
+						
+						<ul class="dropdown-menu notifications">
+							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>jhbzfqsghjq kjjsqhvfiu </a></li>
+							<li><a href="/messages" class="more">Ouvrir la boite de messagerie</a></li>
+						</ul>
+				
+						
+					</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
 								<i class="lnr lnr-alarm"></i>

@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->text('description')->nullable();
             $table->string('role')->default('admin');
+            $table->integer('iddep');
             $table->rememberToken();
             $table->timestamps();
         });

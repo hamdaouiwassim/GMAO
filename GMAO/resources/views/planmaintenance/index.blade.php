@@ -18,6 +18,23 @@
 				
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+							<i class="lnr lnr-envelope"></i>
+							
+						
+							<span class="badge bg-danger"> 2 </span>
+							 
+						</a>
+						
+						
+						<ul class="dropdown-menu notifications">
+							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>jhbzfqsghjq kjjsqhvfiu </a></li>
+							<li><a href="/messages" class="more">Ouvrir la boite de messagerie</a></li>
+						</ul>
+				
+						
+					</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
 								<i class="lnr lnr-alarm"></i>
@@ -88,7 +105,19 @@
 								</ul>
 							</div>
                             </li>
-						
+							<li>
+						<a href="#subdepartments" data-toggle="collapse" class="collapsed"><i class="lnr lnr-store"></i> <span>Departements</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+
+						<div id="subdepartments" class="collapse ">
+							<ul class="nav">
+								@if (Auth::user()->role == "Administrateur")
+								<li> <a href="/department/create" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
+								@endif
+								<li> <a href="/departments" class=""><i class="lnr lnr-list"></i> Liste</a></li>
+
+							</ul>
+						</div>
+					</li>
                             <li>
                             <a href="#subdi"  data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Demande intervention</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							

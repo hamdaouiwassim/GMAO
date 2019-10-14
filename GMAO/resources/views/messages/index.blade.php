@@ -24,6 +24,23 @@
 				
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+							<i class="lnr lnr-envelope"></i>
+							
+						
+							<span class="badge bg-danger"> 2 </span>
+							 
+						</a>
+						
+						
+						<ul class="dropdown-menu notifications">
+							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>jhbzfqsghjq kjjsqhvfiu </a></li>
+							<li><a href="/messages" class="more">Ouvrir la boite de messagerie</a></li>
+						</ul>
+				
+						
+					</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
 								<i class="lnr lnr-alarm"></i>
@@ -94,7 +111,19 @@
 								</ul>
 							</div>
                             </li>
-						
+							<li>
+						<a href="#subdepartments" data-toggle="collapse" class="collapsed"><i class="lnr lnr-store"></i> <span>Departements</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+
+						<div id="subdepartments" class="collapse ">
+							<ul class="nav">
+								@if (Auth::user()->role == "Administrateur")
+								<li> <a href="/department/create" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
+								@endif
+								<li> <a href="/departments" class=""><i class="lnr lnr-list"></i> Liste</a></li>
+
+							</ul>
+						</div>
+					</li>
                             <li>
                             <a href="#subdi"  data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Demande intervention</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							
@@ -149,7 +178,7 @@
 					<!-- OVERVIEW -->
 					<div class="panel panel-headline">
 						<div class="panel-heading">
-                            <h3 class="panel-title"><i class="lnr lnr-file-empty"></i> Gestion des demandes d'interventions</h3>
+                            <h3 class="panel-title"><i class="lnr lnr-file-empty"></i> Liste des Conversations </h3>
 							<p class="panel-subtitle">Aujourd'hui : <?php echo date('M')." ".date('d')." , ".date('Y'); ?> </p>
 						</div>
 						<div class="panel-body">
@@ -158,68 +187,46 @@
 							<!-- TABLE STRIPED -->
 							<div class="panel">
 								<div class="panel-heading">
-									<h3 class="panel-title">@isset($searchuser) Resultat de recherche pour : <span class="text-primary"> " {{ $searchuser }} "</span> @else Messages  @endisset </h3>
+									<h3 class="panel-title">   Conversations  </h3>
+									<hr>
 								</div>
 								<div class="panel-body">
-								@if( session()->get( 'adduser' ) == "deleted" )
-                                <div class="alert alert-success alert-dismissible" role="alert">
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<i class="fa fa-check-circle"></i> Utilisateur supprimé avec success 
-								</div>
-                                @endif
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Identifiant</th>
-                                                        <th>Etat</th>
-                                                        <th>Emetteur</th>
-                                                        <th>Machine</th>
-                                                        <th>Intervalle</th>
-                                                        
-                                                        <th>Date de creation</th>
-                                                        
-                                                        
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                <?php $i=0; ?>
-                                                @foreach($mpreventives as $mp)
-                                                <?php $i++; ?>
-                                                <tr>
-                                                    <td>{{ $i }}</td>
-                                                    <td><a href="/mp/show/{{ $mp->id }}">{{ $mp->numero }}</a></td>
-                                                    <td><span class="label label-warning">{{ $mp->etat }}</span></td>
-                                                   <td>@foreach($users as $user )
-                                                        @if ( $user->id == $mp->emetteur )
-                                                            {{ $user->name }} 
-                                                        @endif
-                                                        @endforeach
-                                                        </td>
-                                                    <td>
-                                                    @foreach($equipements as $equipement )
-                                                        @if ( $equipement->id == $mp->idmachine )
-                                                            {{ $equipement->name }} 
-                                                        @endif
-                                                        @endforeach
-                                                    </td>
-                                                    <td>{{ $mp->intervalle }} {{ $mp->umesure }} </td>
-                                                    
-                                                    <td>{{ $mp->created_at }}</td>
-                                                    
-                                                    
-                                                </tr>
-                                                @endforeach 
-                                                </tbody>
-                                            </table>
-                                      
+										<div class="row">
+											<div class="col-md-3" style="display:block;">
+											<h3 class="panel-title">   Utilisateurs  </h3>
+														<hr>
+														@foreach( $users as $user )
+															<button style="width:100%" type="button" class="btn btn-primary">{{ $user->name }} ( 0 ) </button>
+														@endforeach
+											</div>
+											<div class="col-md-9">
+														<h3 class="panel-title">   Messages  </h3>
+														<hr>
+														<br>
+														<div class="alert alert-success" style="text-align:right">
+															yyutyutyt djegoks ghygg hiui ohoihjlk ohi jgkjsrdg
+														</div>
+														<div class="alert alert-info">
+															yyutyutyt djegoks ghygg hiui ohoihjlk ohi jgkjsrdg
+														</div>
+														
+
+														<div class="row" style="padding:15px;">
+															<form >
+																<textarea class="form-control"></textarea>
+																<br>
+																<input type="submit" class="btn btn-primary" value="envoyer">
+															</form> 
+														</div>	
+											</div>
+										</div>
+														
                                     <!-- END TABLE STRIPED -->
                                 </div>
-                    	</div>
+                    			</div>
 								<div class="panel-footer">
 									<div class="row">
 										<div class="col-md-6"></div>
-										<div class="col-md-6 text-right"><a href="/mp" class="btn btn-primary">Effacer la recherche</a></div>
 									</div>
 								</div>
 							</div>
