@@ -1,25 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
-use Carbon\Carbon;
-use App\Activite;
-use App\Ointervention;
-use App\Mpreventive;
-use App\Maintenance;
-use App\Equipement;
-use App\User;
 use Auth;
-use Illuminate\Http\Request;
+use App\User;
+use App\Message;
+use App\Activite;
+use Carbon\Carbon;
+use App\Equipement;
+use App\Maintenance;
+use App\Mpreventive;
 use App\Notification;
+use App\Ointervention;
+use Illuminate\Http\Request;
 
 class OinterventionsController extends Controller
 {
     //
     public function index(){
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $users = User::all();
         $equipements = Equipement::all();
         $ointerventions = Ointervention::all();
-        return view('dmdinterventions.index')->with('ointerventions',$ointerventions)->with('equipements',$equipements)->with('users',$users);
+        return view('dmdinterventions.index')->with('messages',$messages)->with('notifications',$notifications)->with('ointerventions',$ointerventions)->with('equipements',$equipements)->with('users',$users);
     }
     public function store(Request $request){
        $oi = new Ointervention();
@@ -38,13 +41,18 @@ class OinterventionsController extends Controller
 
     }
     public function create(){
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $equipements = Equipement::all();
         $techniciens = User::where('role',"Technicien")->get();
-        return view('dmdinterventions.ajout')->with('equipements',$equipements)->with('techniciens',$techniciens);
+        $users = User::all();
+        return view('dmdinterventions.ajout')->with('users',$users)->with('equipements',$equipements)->with('techniciens',$techniciens)->with('messages',$messages)->with('notifications',$notifications);
     }
     public function show($id){
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $oi = Ointervention::find($id);
-        return view('dmdinterventions.affiche')->with('oi',$oi);
+        return view('dmdinterventions.affiche')->with('oi',$oi)->with('messages',$messages)->with('notifications',$notifications);
     }
     public function ordretravaille($id){
         $oi = Ointervention::find($id);
@@ -81,8 +89,10 @@ class OinterventionsController extends Controller
         return redirect("/homet");
     }
     public function ordretravailleshow($id){
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $oi = Ointervention::find($id);
-        return view('dmdinterventions.observation')->with('oi',$oi);
+        return view('dmdinterventions.observation')->with('oi',$oi)->with('messages',$messages)->with('notifications',$notifications);
 
     }
     public function valider($id){
@@ -102,10 +112,12 @@ class OinterventionsController extends Controller
 
     }
     public function filter(Request $request){
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $users = User::all();
         $equipements = Equipement::all();
         $ointerventions = Ointervention::where("numero",'like','%'.$request->input("searchoi").'%')->get();
-        return view('dmdinterventions.index')->with('ointerventions',$ointerventions)->with('equipements',$equipements)->with('users',$users);
+        return view('dmdinterventions.index')->with('messages',$messages)->with('notifications',$notifications)->with('ointerventions',$ointerventions)->with('equipements',$equipements)->with('users',$users);
 
     }
     public function addobservationoi(Request $request , $id){

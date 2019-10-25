@@ -59,6 +59,8 @@ Route::get('/otmp/refus/{id}','OinterventionsController@ordremprefus')->middlewa
 Route::post('/ot/addobservation/{id}','OinterventionsController@addobservationoi')->middleware('auth');
 Route::post('/otmp/addobservation/{id}','OinterventionsController@addobservationmp')->middleware('auth');
 
+Route::get('/notification/seen/{id}','NotificationsController@seen')->middleware('auth');
+
 
 
 
@@ -77,16 +79,19 @@ Route::get('/pm','PlanmaintenancesController@index')->middleware('auth');
 Route::get('/cm','ContratsController@index')->middleware('auth');
 
 Route::get('/cm/create','ContratsController@create')->middleware('auth');
-
+Route::post('/cm/filter','ContratsController@filter')->middleware('auth');
 Route::post('/addcontrat','ContratsController@add')->middleware('auth');
 
 
 /* Messages Route */
 
 Route::get('/messages',"MessagesController@index")->middleware('auth');
+Route::get('/conversation/{id}',"MessagesController@conversation")->middleware('auth');
+Route::post('/addmessage',"MessagesController@store")->middleware('auth');
 
 /* Departments routes */
 
+Route::post('/department/filter',"DepartmentsController@filter")->middleware('auth');
 Route::get('/department/create',"DepartmentsController@create")->middleware('auth');
 Route::post('/department/add',"DepartmentsController@add")->middleware('auth');
 Route::post('/department/mod',"DepartmentsController@update")->middleware('auth');

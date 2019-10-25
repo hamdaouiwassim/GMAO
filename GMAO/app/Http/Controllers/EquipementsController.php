@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use App\User;
-use App\Equipement;
-use App\Activite;
 use Auth;
 use File;
+use App\User;
+use App\Message;
+use App\Activite;
+use App\Equipement;
+use App\Notification;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 
 class EquipementsController extends Controller
@@ -21,8 +23,11 @@ class EquipementsController extends Controller
     public function index()
     {
          //
+         $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+         $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
          $equipements = Equipement::all();
-         return view('Equipements.index')->with('equipements',$equipements);
+         $users = User::all();
+         return view('Equipements.index')->with('users',$users)->with('equipements',$equipements)->with('messages',$messages)->with('notifications',$notifications);
     }
      /**
      * Display a listing of the resource.
@@ -32,8 +37,11 @@ class EquipementsController extends Controller
     public function filter(Request $request)
     {
          //
+         $users = User::all();
+         $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+         $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
          $equipements = Equipement::where("name",'like','%'.$request->input("searchequipement").'%')->get();
-         return view('Equipements.index')->with('equipements',$equipements);
+         return view('Equipements.index')->with('users',$users)->with('equipements',$equipements)->with('messages',$messages)->with('notifications',$notifications);
     }
 
     /**
@@ -44,7 +52,10 @@ class EquipementsController extends Controller
     public function create()
     {
         //
-        return view('equipements.ajout');
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
+        $users = User::all();
+        return view('equipements.ajout')->with('users',$users)->with('messages',$messages)->with('notifications',$notifications);
     }
 
     /**

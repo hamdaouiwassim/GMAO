@@ -1,16 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use App\User;
 use Auth;
-use App\Activite;
-use App\Department;
 use File;
 
+use App\User;
+use App\Message;
+use App\Activite;
+use App\Department;
+use App\Notification;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Request;
+
 class UsersController extends Controller
 {
     /**
@@ -21,8 +25,11 @@ class UsersController extends Controller
     public function index()
     {
         //
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
+        $departments = Department::all();
         $users = User::where( 'email',"!=", Auth::user()->email )->get();
-        return view('users.index')->with('users',$users);
+        return view('users.index')->with('users',$users)->with('departments',$departments)->with('messages',$messages)->with('notifications',$notifications);
     }
         /**
      * Display a listing of the resource.
@@ -42,7 +49,11 @@ class UsersController extends Controller
         $activite->iduser = Auth::user()->id;
         $activite->description = "chercher pour l'utilisateur ".$searchuser;
         $activite->save();
-        return view('users.index')->with('users',$users)->with('search', $search )->with('searchuser', $searchuser );
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
+        $departments = Department::all();
+        //$users = User::where( 'email',"!=", Auth::user()->email )->get();
+        return view('users.index')->with('users',$users)->with('search', $search )->with('searchuser', $searchuser )->with('messages', $messages )->with('notifications', $notifications)->with('departments', $departments );
     }
     
 
@@ -54,8 +65,11 @@ class UsersController extends Controller
     public function create()
     {
         //
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $departments = Department::all();
-        return view('users.ajout')->with('departments',$departments);
+        $users = User::all();
+        return view('users.ajout')->with('departments',$departments)->with('users',$users)->with('messages',$messages)->with('notifications',$notifications);
     }
 
     /**
@@ -135,12 +149,17 @@ class UsersController extends Controller
         return view('users.modif')->with('user',$user);
     }
     public function profile(){
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $activities = Activite::where('iduser',Auth::user()->id)->get();
-        return view('users.profile')->with('activities',$activities);
+        $users = User::all();
+        return view('users.profile')->with('users',$users)->with('activities',$activities)->with('messages',$messages)->with('notifications',$notifications);
     }
     public function profilemod(){
         
-        return view('users.profilemod'); 
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
+        return view('users.profilemod')->with('messages',$messages)->with('notifications',$notifications); 
     }
 
     /**

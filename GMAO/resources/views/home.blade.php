@@ -27,13 +27,23 @@
 							<i class="lnr lnr-envelope"></i>
 							
 						
-							<span class="badge bg-danger"> 2 </span>
+							<span class="badge bg-danger"> {{ count($messages) }} </span>
 							 
 						</a>
 						
 						
 						<ul class="dropdown-menu notifications">
-							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>jhbzfqsghjq kjjsqhvfiu </a></li>
+							@foreach($messages as $message)
+							<li><a href="/conversation/{{ $message->idsender }}" class="notification-item"><span class="dot bg-warning"></span> 
+							@foreach($users as $user)
+								@if ( $user->id == $message->idsender)
+									{{ $user->name }}	: 
+								@endif
+							@endforeach
+							
+							
+							<span class="text-danger">" {{ $message->content}} "</span> </a></li>
+							@endforeach
 							<li><a href="/messages" class="more">Ouvrir la boite de messagerie</a></li>
 						</ul>
 				
@@ -52,7 +62,7 @@
 						@if( count($notifications) > 0 ) 
 						<ul class="dropdown-menu notifications">
 							@foreach ($notifications as $not )
-							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a></li>
+							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="notification/seen/{{ $not->id }}">Lue</a></li>
 							@endforeach
 							
 						</ul>
@@ -166,7 +176,7 @@
 							<div id="subcm" class="collapse ">
 							   <ul class="nav">
 							   @if (Auth::user()->role == "Administrateur")
-								   <li> <a href="/cm" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
+								   <li> <a href="/cm/create" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
 							   @endif
 								   <li> <a href="/cm" class=""><i class="lnr lnr-list"></i> Liste</a></li>
 								   

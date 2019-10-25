@@ -22,32 +22,49 @@
 							<i class="lnr lnr-envelope"></i>
 							
 						
-							<span class="badge bg-danger"> 2 </span>
+							<span class="badge bg-danger"> {{ count($messages) }} </span>
 							 
 						</a>
 						
 						
 						<ul class="dropdown-menu notifications">
-							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>jhbzfqsghjq kjjsqhvfiu </a></li>
+							@foreach($messages as $message)
+							<li><a href="/conversation/{{ $message->idsender }}" class="notification-item"><span class="dot bg-warning"></span> 
+							@foreach($users as $user)
+								@if ( $user->id == $message->idsender)
+									{{ $user->name }}	: 
+								@endif
+							@endforeach
+							
+							
+							<span class="text-danger">" {{ $message->content}} "</span> </a></li>
+							@endforeach
 							<li><a href="/messages" class="more">Ouvrir la boite de messagerie</a></li>
 						</ul>
 				
 						
 					</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
-								<i class="lnr lnr-alarm"></i>
-								<span class="badge bg-danger">5</span>
-							</a>
-							<ul class="dropdown-menu notifications">
-								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
-								<li><a href="#" class="more">See all notifications</a></li>
-							</ul>
-						</li>
+			
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+							<i class="lnr lnr-alarm"></i>
+							
+						@if( count($notifications) > 0 ) 
+							<span class="badge bg-danger">{{ count($notifications) }} </span>
+							@endif 
+						</a>
+						
+						@if( count($notifications) > 0 ) 
+						<ul class="dropdown-menu notifications">
+							@foreach ($notifications as $not )
+							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="notification/seen/{{ $not->id }}">Lue</a></li>
+							@endforeach
+							
+						</ul>
+				
+						@endif 		
+					</li>
+			
 						
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">

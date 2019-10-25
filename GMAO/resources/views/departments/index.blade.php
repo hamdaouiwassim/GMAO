@@ -14,10 +14,10 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				<form action="/user/filter" method="POST" class="navbar-form navbar-left">
+				<form action="/department/filter" method="POST" class="navbar-form navbar-left">
                     {{ csrf_field() }} 
 					<div class="input-group">
-						<input type="text" name="searchuser" class="form-control" placeholder="Chercher un departements...">
+						<input type="text" name="searchdepartment" class="form-control" placeholder="Chercher un departements...">
 						<span class="input-group-btn"><button type="submit" class="btn btn-primary">chercher</button></span>
 					</div>
 				</form>
@@ -29,32 +29,48 @@
 							<i class="lnr lnr-envelope"></i>
 							
 						
-							<span class="badge bg-danger"> 2 </span>
+							<span class="badge bg-danger"> {{ count($messages) }} </span>
 							 
 						</a>
 						
 						
 						<ul class="dropdown-menu notifications">
-							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>jhbzfqsghjq kjjsqhvfiu </a></li>
+							@foreach($messages as $message)
+							<li><a href="/conversation/{{ $message->idsender }}" class="notification-item"><span class="dot bg-warning"></span> 
+							@foreach($users as $user)
+								@if ( $user->id == $message->idsender)
+									{{ $user->name }}	: 
+								@endif
+							@endforeach
+							
+							
+							<span class="text-danger">" {{ $message->content}} "</span> </a></li>
+							@endforeach
 							<li><a href="/messages" class="more">Ouvrir la boite de messagerie</a></li>
 						</ul>
 				
 						
 					</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
-								<i class="lnr lnr-alarm"></i>
-								<span class="badge bg-danger">5</span>
-							</a>
-							<ul class="dropdown-menu notifications">
-								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
-								<li><a href="#" class="more">See all notifications</a></li>
-							</ul>
-						</li>
+			
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+							<i class="lnr lnr-alarm"></i>
+							
+						@if( count($notifications) > 0 ) 
+							<span class="badge bg-danger">{{ count($notifications) }} </span>
+							@endif 
+						</a>
+						
+						@if( count($notifications) > 0 ) 
+						<ul class="dropdown-menu notifications">
+							@foreach ($notifications as $not )
+							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="notification/seen/{{ $not->id }}">Lue</a></li>
+							@endforeach
+							
+						</ul>
+				
+						@endif 		
+					</li>
 						
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -162,7 +178,7 @@
                              <div id="subcm" class="collapse ">
 								<ul class="nav">
 								@if (Auth::user()->role == "Administrateur")
-									<li> <a href="/cm" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
+									<li> <a href="/cm/create" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
 								@endif
 									<li> <a href="/cm" class=""><i class="lnr lnr-list"></i> Liste</a></li>
 									
@@ -234,7 +250,7 @@
 								<div class="panel-footer">
 									<div class="row">
 										<div class="col-md-6"></div>
-										<div class="col-md-6 text-right"><a href="/users" class="btn btn-primary">Effacer la recherche</a></div>
+										<div class="col-md-6 text-right"><a href="/departments" class="btn btn-primary">Effacer la recherche</a></div>
 									</div>
 								</div>
 							</div>

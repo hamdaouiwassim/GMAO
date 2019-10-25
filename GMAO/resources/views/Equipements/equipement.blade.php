@@ -153,7 +153,7 @@
                              <div id="subcm" class="collapse ">
 								<ul class="nav">
 								@if (Auth::user()->role == "Administrateur")
-									<li> <a href="/cm" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
+									<li> <a href="/cm/create" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
 								@endif
 									<li> <a href="/cm" class=""><i class="lnr lnr-list"></i> Liste</a></li>
 									

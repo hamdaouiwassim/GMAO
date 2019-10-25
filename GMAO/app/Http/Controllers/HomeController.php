@@ -8,6 +8,7 @@ use App\Activite;
 use App\Ointervention;
 use App\Mpreventive;
 use App\Equipement;
+use App\Message;
 use App\Notification;
 
 use Auth;
@@ -31,8 +32,8 @@ class HomeController extends Controller
     public function index()
     {
        
-
-        $notifications = Notification::where('touser',Auth::user()->role)->whereDate('created_at', '=', date('Y-m-d'))->get();
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $nbrtechniciens = User::where('role',"Technicien")->count();
         $nbrchefsec = User::where('role',"Chef secteur")->count();
         $users = User::all();
@@ -49,11 +50,13 @@ class HomeController extends Controller
         $ditperc = round( ( $dit / $diall ) * 100, 2);
         //echo $diperc ;
 
-        return view('home')->with('notifications',$notifications)->with('ditperc',$ditperc)->with('diecperc',$diecperc)->with('dirperc',$dirperc)->with('diperc',$diperc)->with('users',$users)->with('activities',$activities)->with('nbrtechniciens',$nbrtechniciens)->with('nbrchefsec',$nbrchefsec);
+        return view('home')->with('notifications',$notifications)->with('messages',$messages)->with('ditperc',$ditperc)->with('diecperc',$diecperc)->with('dirperc',$dirperc)->with('diperc',$diperc)->with('users',$users)->with('activities',$activities)->with('nbrtechniciens',$nbrtechniciens)->with('nbrchefsec',$nbrchefsec);
     }
     public function indextechnicien()
     {
-        $notifications = Notification::where('iduser', Auth::user()->id)->get();
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
+       
         $equipements = Equipement::all();
         $today = date('Y-m-d');
         $ointerventions = Ointervention::where('destinateur',Auth::user()->id)
@@ -63,8 +66,8 @@ class HomeController extends Controller
                             ->where('date_prochaine',$today)
                             ->where('etat',"=","En cours")
                             ->get();
-        
-        return view('homet')->with('equipements',$equipements)->with('ointerventions',$ointerventions)->with('mpreventives',$mpreventives);
+        $users = User::all();
+        return view('homet')->with('users',$users)->with('messages',$messages)->with('notifications',$notifications)->with('equipements',$equipements)->with('ointerventions',$ointerventions)->with('mpreventives',$mpreventives);
     }
     
 }
