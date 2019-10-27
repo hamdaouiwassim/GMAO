@@ -26,13 +26,12 @@ class OinterventionsController extends Controller
     }
     public function store(Request $request){
        $oi = new Ointervention();
-       
-       
        $oi->numero = $request->input("numero");
        $oi->emetteur = $request->input("emetteur");
        $oi->idmachine = $request->input("machine");
        $oi->type_panne = $request->input("type_panne");
        $oi->priorite = $request->input("priorite");
+       $oi->execution = $request->input("execution");
        $oi->destinateur = $request->input("iduser");
        $oi->commentaire = $request->input("commentaire");
        $oi->etat = "demandée";
@@ -89,6 +88,7 @@ class OinterventionsController extends Controller
         return redirect("/homet");
     }
     public function ordretravailleshow($id){
+        
         $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
         $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $oi = Ointervention::find($id);
@@ -101,12 +101,28 @@ class OinterventionsController extends Controller
         $oi->etat = "Terminé";
         $oi->update();
         
-        $notification = new Notification();
-        $notification->content ="Ordre de travaille ".$oi->numero." validé par ".Auth::user()->name;
-        $notification->touser = "Administrateur" ;
-        //$notification->iduser = ;
-        $notification->stat ="unseen";
-        $notification->save();
+
+           // Lister les administrateurs
+           $admins = User::where('role','=','Administrateur')->get();
+           
+           foreach($admins as $admin ){
+               $notification = new Notification();
+               $notification->stat = "unseen";
+               $notification->touser = "Administrateur";
+               $notification->iduser =$admin->id;
+               $notification->content = "Ordre de travaille ".$oi->numero." validé par ".Auth::user()->name; 
+               $notification->save();
+           }
+           
+            $notification = new Notification();
+            $notification->stat = "unseen";
+            $notification->touser = "Technicien";
+            $notification->iduser = $oi->destinateur;
+            $notification->content = "Ordre de travaille ".$oi->numero." validé par ".Auth::user()->name; 
+            $notification->save();
+      
+
+       
         
         return redirect('/di');
 
@@ -132,15 +148,56 @@ class OinterventionsController extends Controller
         $ac->iduser = Auth::user()->id;
         $ac->description = "valider la demande d'intervention ".$numero;
         $ac->save();
+        // Lister les administrateurs
+        $admins = User::where('role','=','Administrateur')->get();
+        $chefs = User::where('role','=','Chef Secteur')->get();
+        foreach($admins as $admin ){
+            $notification = new Notification();
+            $notification->stat = "unseen";
+            $notification->touser = "Administrateur";
+            $notification->iduser =$admin->id;
+            $notification->content = "le technicien a demaré l'ordre du travaille ".$numero; 
+            $notification->save();
+        }
+        foreach($chefs as $chef ){
+            $notification = new Notification();
+            $notification->stat = "unseen";
+            $notification->touser = "Chef Secteur";
+            $notification->iduser =$chef->id;
+            $notification->content = "le technicien a validé l'ordre du travaille ".$numero; 
+            $notification->save();
+        }
+
+
+      
+
+
         return redirect('/homet');
         //return view('dmdinterventions.observation');
 
     }
     public function ordretravaillempshow($id){
+        $equipements = Equipement::all();
+        //$mp = Mpreventive::find($id);
+        $maintenances = Maintenance::where('idmp',$id)->get(); 
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $mp = Mpreventive::find($id);
         $today = date("Y-m-d");
         $maintenance = Maintenance::where('idmp',$mp->id)->where('date_maintenance',$today)->get();
-        return view('mpreventives.observation')->with('mp',$mp)->with('maintenance',$maintenance);
+        return view('mpreventives.observation')->with('equipements',$equipements)->with('maintenances',$maintenances)->with('mp',$mp)->with('maintenance',$maintenance)->with('messages',$messages)->with('notifications',$notifications);
+
+    }
+    public function historiquempshow($id){
+        $equipements = Equipement::all();
+        //$mp = Mpreventive::find($id);
+        $maintenances = Maintenance::where('idmp',$id)->get(); 
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
+        $mp = Mpreventive::find($id);
+        $today = date("Y-m-d");
+        $maintenance = Maintenance::where('idmp',$mp->id)->where('date_maintenance',$today)->get();
+        return view('mpreventives.historique')->with('equipements',$equipements)->with('maintenances',$maintenances)->with('mp',$mp)->with('maintenance',$maintenance)->with('messages',$messages)->with('notifications',$notifications);
 
     }
     public function addobservationmp(Request $request , $id){
@@ -154,8 +211,26 @@ class OinterventionsController extends Controller
         $numero = $mp->numero;
         $ac = new Activite();
         $ac->iduser = Auth::user()->id;
-        $ac->description = "valider la maintenance preventif".$numero;
+        $ac->description = "valider la maintenance preventif ".$numero;
         $ac->save();
+        $admins = User::where('role','=','Administrateur')->get();
+        $chefs = User::where('role','=','Chef Secteur')->get();
+        foreach($admins as $admin ){
+            $notification = new Notification();
+            $notification->stat = "unseen";
+            $notification->touser = "Administrateur";
+            $notification->iduser =$admin->id;
+            $notification->content = "le technicien a demaré la maintenance preventif ".$numero; 
+            $notification->save();
+        }
+        foreach($chefs as $chef ){
+            $notification = new Notification();
+            $notification->stat = "unseen";
+            $notification->touser = "Chef Secteur";
+            $notification->iduser =$chef->id;
+            $notification->content = "le technicien a validé la maintenance preventif ".$numero; 
+            $notification->save();
+        }
         return redirect('/homet');
         
     }

@@ -45,6 +45,7 @@ class MpreventivesController extends Controller
         $mp->emetteur = $request->input("emetteur");
         $mp->idmachine = $request->input("machine");
         $mp->umesure = $request->input("unite_mesure");
+        $mp->execution = $request->input("execution");
         $mp->intervalle = $request->input("intervalle");
         $mp->date_debut = $request->input("date_debut");
         $mp->date_fin = $request->input("date_fin");
@@ -68,7 +69,12 @@ class MpreventivesController extends Controller
             }
 
         }
-
+        $notification = new Notification();
+        $notification->stat = "unseen";
+        $notification->touser = "Technicien";
+        $notification->iduser = $request->input("executeur");
+        $notification->content = "l'administrateur ajouté une maintenance preventif pour vous";
+        $notification->save();
         return redirect('/mp/add')->with("adduser","success");
  
      }

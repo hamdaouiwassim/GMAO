@@ -6,6 +6,7 @@ use File;
 use App\User;
 use App\Message;
 use App\Activite;
+use App\Department;
 use App\Equipement;
 use App\Notification;
 use Illuminate\Http\Request;
@@ -52,10 +53,11 @@ class EquipementsController extends Controller
     public function create()
     {
         //
+        $departments = Department::all();
         $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
         $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $users = User::all();
-        return view('equipements.ajout')->with('users',$users)->with('messages',$messages)->with('notifications',$notifications);
+        return view('equipements.ajout')->with('departments',$departments)->with('users',$users)->with('messages',$messages)->with('notifications',$notifications);
     }
 
     /**
@@ -116,8 +118,11 @@ class EquipementsController extends Controller
     public function show($id)
     {
         //
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
+        $departments = Department::all();
         $equipement = Equipement::find($id);
-        return view('Equipements.equipement')->with('equipement',$equipement); 
+        return view('Equipements.equipement')->with('equipement',$equipement)->with('departments',$departments)->with('messages',$messages)->with('notifications',$notifications); 
     }
 
     /**
@@ -129,8 +134,11 @@ class EquipementsController extends Controller
     public function edit($id)
     {
         //
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
+        $departments = Department::all();
         $equipement = Equipement::find($id);
-        return view('Equipements.modifier')->with('equipement',$equipement); 
+        return view('Equipements.modifier')->with('equipement',$equipement)->with('departments',$departments)->with('messages',$messages)->with('notifications',$notifications); 
     }
 
     /**

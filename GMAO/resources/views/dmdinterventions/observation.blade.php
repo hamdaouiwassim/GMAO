@@ -58,7 +58,7 @@
 						@if( count($notifications) > 0 ) 
 						<ul class="dropdown-menu notifications">
 							@foreach ($notifications as $not )
-							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="notification/seen/{{ $not->id }}">Lue</a></li>
+							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="/notification/seen/{{ $not->id }}">Lue</a></li>
 							@endforeach
 							
 						</ul>
@@ -96,8 +96,9 @@
             		@if (Auth::user()->role == "Technicien")
 						<li><a href="/homet" ><i class="lnr lnr-home"></i> <span>Ordre du travaille</span></a></li>
 						<li><a href="/profile" class="active"><i class="lnr lnr-user"></i> <span>Compte</span></a></li>
-						
+					</ul>
 					@else
+					<ul class="nav">
                         <li><a href="/home" ><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 						<li><a href="/profile" class="active"><i class="lnr lnr-user"></i> <span>Compte</span></a></li>
 						<li>

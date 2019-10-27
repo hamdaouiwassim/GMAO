@@ -57,7 +57,7 @@
 						@if( count($notifications) > 0 ) 
 						<ul class="dropdown-menu notifications">
 							@foreach ($notifications as $not )
-							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="notification/seen/{{ $not->id }}">Lue</a></li>
+							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="/notification/seen/{{ $not->id }}">Lue</a></li>
 							@endforeach
 							
 						</ul>
@@ -193,7 +193,7 @@
                                                 <tr>                                                                                  
                                                     <td>{{ $i }}</td>
                                                     <td> {{ $mp->numero }} </td>
-                                                    <td><a class='btn btn-success' href="/user/1"><i class="lnr lnr-database"></i> Afficher </a></td>
+                                                    <td><a class='btn btn-success' href="/otmp/historique/{{ $mp->id }}"><i class="lnr lnr-database"></i> Afficher </a></td>
                                                     <td><a class='btn btn-primary' href="/otmp/show/{{ $mp->id }}"><i class="lnr lnr-highlight"></i> Demarrer </a> <a class='btn btn-danger' href="/otmp/refus/{{ $mp->id }}"><i class="lnr lnr-cross-circle"></i> refusé </a></td>
                                                     
                                                 </tr>
@@ -201,7 +201,43 @@
                                                 </tbody>
                                             </table>
                                       
+									<!-- END TABLE STRIPED -->
+									<hr>
+                                     <h3 class="panel-title"> Liste des maintenances preventives de vous   </h3>
+								     <hr>
+                                     <br>
+                                     <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th> # </th>
+                                                        <th> Numero </th>
+														<th> Etat </th>
+														<th> Prochaine date d'execution</th>
+														<th> Historiques </th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php $i=0; ?>
+                                                @foreach( $allmpreventives as $amp )
+                                                <?php $i++; ?>
+                                                <tr>                                                                                  
+                                                    <td>{{ $i }}</td>
+                                                    <td> {{ $amp->numero }} </td>
+													<td><?php  $datecourant =date('Y-m-d'); ?>
+														@if ( $amp->date_debut < $datecourant )
+														<label class="label label-primary"> commencé</label>
+													@endif
+													</td>
+													<td>{{ $amp->date_prochaine }}</td>
+													<td><a class='btn btn-primary' href="/otmp/historique/{{ $amp->id }}"> voir </a></td>
+                                                </tr>
+                                                 @endforeach
+                                                </tbody>
+                                            </table>
+                                      
                                     <!-- END TABLE STRIPED -->
+
                                 </div>
                     	</div>
 								<div class="panel-footer">

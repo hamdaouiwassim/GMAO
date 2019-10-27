@@ -54,6 +54,7 @@ Route::get('/di/valider/{id}','OinterventionsController@valider')->middleware('a
 Route::get('/ot/{id}','OinterventionsController@ordretravaille')->middleware('auth');
 Route::get('/otoi/show/{id}','OinterventionsController@ordretravailleshow')->middleware('auth');
 Route::get('/otmp/show/{id}','OinterventionsController@ordretravaillempshow')->middleware('auth');
+Route::get('/otmp/historique/{id}','OinterventionsController@historiquempshow')->middleware('auth');
 Route::get('/ot/refus/{id}','OinterventionsController@ordrerefus')->middleware('auth');
 Route::get('/otmp/refus/{id}','OinterventionsController@ordremprefus')->middleware('auth');
 Route::post('/ot/addobservation/{id}','OinterventionsController@addobservationoi')->middleware('auth');
@@ -81,6 +82,11 @@ Route::get('/cm','ContratsController@index')->middleware('auth');
 Route::get('/cm/create','ContratsController@create')->middleware('auth');
 Route::post('/cm/filter','ContratsController@filter')->middleware('auth');
 Route::post('/addcontrat','ContratsController@add')->middleware('auth');
+Route::get('/cm/del/{id}','ContratsController@destroy')->middleware('auth');
+Route::get('/cm/mod/{id}','ContratsController@modification')->middleware('auth');
+Route::post('/cm/mod/{id}','ContratsController@modification')->middleware('auth');
+Route::post('/cm/mod/{id}/valide','ContratsController@edit')->middleware('auth');
+
 
 
 /* Messages Route */

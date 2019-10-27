@@ -58,7 +58,7 @@
 						@if( count($notifications) > 0 ) 
 						<ul class="dropdown-menu notifications">
 							@foreach ($notifications as $not )
-							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="notification/seen/{{ $not->id }}">Lue</a></li>
+							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="/notification/seen/{{ $not->id }}">Lue</a></li>
 							@endforeach
 							
 						</ul>
@@ -246,13 +246,17 @@
                                                                 <input style="width:100%;margin-bottom:10px;" class="form-control" placeholder="tapper numero du machine içi " type="number" name="numero">
                                                                 
                                                                 </div>
-                                                                <div class="col-md-3">
-                                                                <label> Emplacement du machine </label>
+																<div class="col-md-3">
+                                                                <label> Departement </label>
                                                                 
                                                                 </div>
                                                                 <div class="col-md-9">
-                                                                    <input style="width:100%;margin-bottom:10px;" class="form-control" placeholder="tapper l'emplacement du machine içi " type="text" name="emplacement">
-                                                                
+                                                                <select name="iddep" class="form-control">
+																	<option>-- selectionner un departement --</option>
+																	@foreach( $departments as $dep )
+                                                                    <option value='{{ $dep->id }}'>{{ $dep->name }}</option>
+                                                                    @endforeach
+                                                                </select> 
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                 <label> Photo du machine </label>

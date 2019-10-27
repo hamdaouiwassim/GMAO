@@ -58,7 +58,7 @@
 						@if( count($notifications) > 0 ) 
 						<ul class="dropdown-menu notifications">
 							@foreach ($notifications as $not )
-							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="notification/seen/{{ $not->id }}">Lue</a></li>
+							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="/notification/seen/{{ $not->id }}">Lue</a></li>
 							@endforeach
 							
 						</ul>
@@ -240,6 +240,22 @@
                                                                         
                                             
                                                                 </select>
+																</div>
+																<div class="col-md-3">
+                                                                <label > Execution </label>
+                                                                
+                                                                </div>
+                                                                <div class="col-md-9">
+																<select name="execution" style="width:100%;margin-bottom:10px;" class="form-control">
+																<option >Selectionner l'endroit d'execution</option>
+																	<option value="Interne">
+																		Interne
+																	</option>
+																	<option value="Externe">
+																		Externe
+																	</option>
+																</select>
+                                                                
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                 <label> Destinateur </label>

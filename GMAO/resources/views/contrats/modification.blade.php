@@ -14,13 +14,6 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				<form action="/oi/filter" method="POST" class="navbar-form navbar-left">
-                    {{ csrf_field() }} 
-					<div class="input-group">
-						<input type="text" name="searchoi" class="form-control" placeholder="Chercher une demande d'intervention...">
-						<span class="input-group-btn"><button type="submit" class="btn btn-primary">chercher</button></span>
-					</div>
-				</form>
 				
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
@@ -70,15 +63,13 @@
 						</ul>
 				
 						@endif 		
-					</li>
+						
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								@if (Auth::user()->avatar == NULL )
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">@if (Auth::user()->avatar == NULL )
 								<img src=" {{ asset('img/user.png') }}" class="img-circle" alt="Avatar">
 								@else 
 								<img src=" {{ asset('uploads/profile/'.Auth::user()->avatar) }}" class="img-circle" alt="Avatar">	
-								@endif
-								 <span>{{ Auth::user()->name }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+								@endif <span>{{ Auth::user()->name }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
 								
 								<li><a href="/profile"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
@@ -98,30 +89,26 @@
 		<div id="sidebar-nav" class="sidebar">
 			<div class="sidebar-scroll">
 				<nav>
-					<ul class="nav">
+				<ul class="nav">
                         <li><a href="/home" ><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 						<li><a href="/profile" ><i class="lnr lnr-user"></i> <span>Compte</span></a></li>
 						<li>
-                         <a  href="#subusers" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Utilisateurs</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                         <a  href="#subusers"  data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Utilisateurs</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							
                             <div id="subusers" class="collapse ">
 								<ul class="nav">
-								@if (Auth::user()->role == "Administrateur")
 									<li> <a href="/user/add" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
-								@endif
 									<li> <a href="/users" class=""><i class="lnr lnr-list"></i> Liste</a></li>
 									
 								</ul>
 							</div>
                          </li>
 						<li>
-                         <a href="#subeqpmt"  data-toggle="collapse" class="collapsed"><i class="lnr lnr-laptop-phone"></i> <span>Equipements</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                         <a href="#subeqpmt" data-toggle="collapse" class="collapsed"><i class="lnr lnr-laptop-phone"></i> <span>Equipements</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							
                             <div id="subeqpmt" class="collapse ">
 								<ul class="nav">
-								@if (Auth::user()->role == "Administrateur")
 									<li> <a href="/equipement/add" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
-								@endif
 									<li> <a href="/equipements" class=""><i class="lnr lnr-list"></i> Liste</a></li>
 									
 								</ul>
@@ -141,13 +128,11 @@
 						</div>
 					</li>
                             <li>
-                            <a href="#subdi" class="active" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Demande intervention</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                            <a href="#subdi" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Demande intervention</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							
                             <div id="subdi" class="collapse ">
 								<ul class="nav">
-								@if (Auth::user()->role == "Administrateur")
 									<li> <a href="/di/add" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
-								@endif
 									<li> <a href="/di" class=""><i class="lnr lnr-list"></i> Liste</a></li>
 									
 								</ul>
@@ -158,9 +143,7 @@
 							
                              <div id="submp" class="collapse ">
 								<ul class="nav">
-								@if (Auth::user()->role == "Administrateur")
 									<li> <a href="/mp/add" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
-								@endif
 									<li> <a href="/mp" class=""><i class="lnr lnr-list"></i> Liste</a></li>
 									
 								</ul>
@@ -169,19 +152,19 @@
 						    <li>
                             <a href="/pm" class=""><i class="lnr lnr-calendar-full"></i> <span>Plan de maintenance</span></a></li>
 							<li>
+                           
+							<a href="#subcm" class="active"  data-toggle="collapse" class="collapsed"><i class="lnr lnr lnr-license"></i> <span>Contrats maintenance</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							
-							<a href="#subcm"  data-toggle="collapse" class="collapsed"><i class="lnr lnr lnr-license"></i> <span>Contrats maintenance</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							
-                             <div id="subcm" class="collapse ">
-								<ul class="nav">
-								@if (Auth::user()->role == "Administrateur")
-									<li> <a href="/cm/create" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
-								@endif
-									<li> <a href="/cm" class=""><i class="lnr lnr-list"></i> Liste</a></li>
-									
-								</ul>
-							</div>
-						</li>
+							<div id="subcm" class="collapse ">
+							   <ul class="nav">
+							   @if (Auth::user()->role == "Administrateur")
+								   <li> <a href="/cm/create" class=""><i class="lnr lnr-file-add"></i> Ajouter</a></li>
+							   @endif
+								   <li> <a href="/cm" class=""><i class="lnr lnr-list"></i> Liste</a></li>
+								   
+							   </ul>
+						   </div></li>
+						
 					</ul>
 				</nav>
 			</div>
@@ -195,7 +178,7 @@
 					<!-- OVERVIEW -->
 					<div class="panel panel-headline">
 						<div class="panel-heading">
-                            <h3 class="panel-title"><i class="lnr lnr-file-empty"></i> Gestion des demandes d'interventions</h3>
+							<h3 class="panel-title"><i class="lnr lnr-users"></i> Gestion des Contrats du maintenances </h3>
 							<p class="panel-subtitle">Aujourd'hui : <?php echo date('M')." ".date('d')." , ".date('Y'); ?> </p>
 						</div>
 						<div class="panel-body">
@@ -203,86 +186,80 @@
 						<div class="col-md-12">
 							<!-- TABLE STRIPED -->
 							<div class="panel">
+                                
 								<div class="panel-heading">
-									<h3 class="panel-title">@isset($searchuser) Resultat de recherche pour : <span class="text-primary"> " {{ $searchuser }} "</span> @else Liste des demandes d'interventions @endisset </h3>
+									<h3 class="panel-title"> Modification  contrat du maintenance   </h3>
 								</div>
+                                
 								<div class="panel-body">
-								@if( session()->get( 'adduser' ) == "deleted" )
+                                @if( session()->get( 'adduser' ) == "success" )
                                 <div class="alert alert-success alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<i class="fa fa-check-circle"></i> Utilisateur supprimé avec success 
+										<i class="fa fa-check-circle"></i> Utilisateur ajouter avec success <a href="/users" class="btn btn-sm btn-default"> Consulter liste des utilisateurs </a>
 								</div>
                                 @endif
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>N° Intervention</th>
-                                                        <th>Etat</th>
-                                                        <th>Emetteur</th>
-                                                        <th>Machine</th>
-                                                        <th>Commentaire</th>
-                                                        
-                                                        <th>Date de creation</th>
-														@if (Auth::user()->role == "Chef Secteur")
-                                                        
-                                                        <th>Validation</th>
-                                                        @endif
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                <?php $i=0; ?>
-                                                @foreach($ointerventions as $oi)
-                                                <?php $i++; ?>
-                                                <tr>
-                                                    <td>{{ $i }}</td>
-                                                    <td>{{ $oi->numero }}</td>
-                                                    <td>
-													
-													@if ($oi->etat == "refusée")
-													<span class="label label-danger">
-													@elseif( $oi->etat == "demandée"  )
-													<span class="label label-info">
-													@elseif( $oi->etat == "En attente de validation" || $oi->etat == "En cours"  )
-													<span class="label label-warning">
-													@else
-													<span class="label label-success">
-
-													@endif
-													
-													
-													{{ $oi->etat }}</span></td>
-                                                    <td>@foreach($users as $user )
-                                                        @if ( $user->id == $oi->emetteur )
-                                                            {{ $user->name }} 
-                                                        @endif
-                                                        @endforeach
-                                                        </td>
-                                                    <td>
-                                                    @foreach($equipements as $equipement )
-                                                        @if ( $equipement->id == $oi->idmachine )
-                                                            {{ $equipement->name }} 
-                                                        @endif
-                                                        @endforeach
-                                                    </td>
-                                                    <td>{{ $oi->commentaire }}</td>
-                                                    
-                                                    <td>{{ $oi->created_at }}</td>
-													@if (Auth::user()->role == "Chef Secteur")
-                                                        
-                                                        <td>
-														@if ($oi->etat == "En attente de validation")
-														<a href="/di/valider/{{ $oi->id }}" class="btn btn-success">Valider</a>
-														@endif
-														
-														</td>
-                                                     @endif
-                                                    
-                                                    
-                                                </tr>
-                                                @endforeach 
-                                                </tbody>
-                                            </table>
+                                <form action='/cm/mod/{{ $contract->id }}/valide' method="POST" >
+                                                        {{ csrf_field() }} 
+                                         
+                                                            <div class="row">
+                                                            
+                                                                <div class="col-md-3">
+                                                                <label > Nom du contrat </label>
+                                                                
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                <input style="width:100%;margin-bottom:10px;" class="form-control" value="{{ $contract->name }}" type="text" name="contratname">
+                                                                
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                <label > Nom du societe </label>
+                                                                
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                <input style="width:100%;margin-bottom:10px;" class="form-control" value="{{ $contract->societe }}" type="text" name="societe">
+                                                                
+                                                                </div>
+                                                               
+                                                               
+                                                                <div class="col-md-3">
+                                                                <label> Ordre du travaille </label>
+                                                                
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                <select style="width:100%;margin-bottom:10px;" name="maintenance" class="form-control">
+                                                                    <option>-- selectionner un ordre --</option>
+                                                                    @foreach( $ordres as $ot)
+                                                                    @if ( $contract->maintenance == $ot[1] )
+                                                                    <option selected value='{{ $ot[1] }}'>{{$ot[0]}}</option>
+                                                                    @else
+                                                                    <option value='{{ $ot[1] }}'>{{$ot[0]}}</option>
+                                                                    @endif
+                                                                    @endforeach
+                                                                </select> 
+																</div>
+																
+                                                                <div class="col-md-3">
+                                                                <label> Description du contrat </label>
+                                                                
+                                                                </div>
+                                                                <div class="col-md-9">
+																<textarea class="form-control" name="note" >{{ $contract->note }}</textarea>
+                                                                </div>
+                                                                
+                                                                <div class="col-md-3">
+                                                                <label> Cout de maintenance </label>
+                                                                
+                                                                </div>
+                                                                <div class="col-md-9">
+																<input style="width:100%;margin-bottom:10px;" type="number" step="0.1" class="form-control" name="cout" value="{{ $contract->cout }}">
+																</div>
+																
+															
+															
+                                                            </div>
+                                                               
+                                                           
+                                                            
                                       
                                     <!-- END TABLE STRIPED -->
                                 </div>
@@ -290,7 +267,7 @@
 								<div class="panel-footer">
 									<div class="row">
 										<div class="col-md-6"></div>
-										<div class="col-md-6 text-right"><a href="/di" class="btn btn-primary">Effacer la recherche</a></div>
+										<div class="col-md-6 text-right"><input type="submit" value="Modifier" class="btn btn-primary"></div></form>
 									</div>
 								</div>
 							</div>
@@ -307,7 +284,7 @@
 		<footer>
 			<div class="container-fluid">
 			<p class="copyright">&copy; 2017 <a href="/" target="_blank">TAVGMAO</a>.</p>
-				</div>
+			</div>
 		</footer>
 	</div>
 	<!-- END WRAPPER -->

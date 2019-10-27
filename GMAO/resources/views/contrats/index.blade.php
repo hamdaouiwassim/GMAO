@@ -64,7 +64,7 @@
 						@if( count($notifications) > 0 ) 
 						<ul class="dropdown-menu notifications">
 							@foreach ($notifications as $not )
-							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="notification/seen/{{ $not->id }}">Lue</a></li>
+							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="/notification/seen/{{ $not->id }}">Lue</a></li>
 							@endforeach
 							
 						</ul>
@@ -222,7 +222,8 @@
                                                         <th>#</th>
                                                         <th>Nom</th>
                                                         <th>Societe</th>
-                                                        <th>Ordre du travaille</th>
+														<th>Ordre du travaille</th>
+														<th>Cout</th>
 														<th>Date du contrat</th>
 														@if (Auth::user()->role == "Administrateur")
 														<th> Actions </th>
@@ -253,6 +254,7 @@
 																@endforeach
 														@endif
 													</td>
+													<td>{{ $contrat->cout }} DT </td>
 													<td>{{ $contrat->created_at }}</td>
 													@if (Auth::user()->role == "Administrateur")
 														<td><a href="/cm/mod/{{ $contrat->id }}" class="btn btn-primary"> Modifier </a> <a class="btn btn-danger" href="/cm/del/{{ $contrat->id }}"> Supprimer </a> </td>

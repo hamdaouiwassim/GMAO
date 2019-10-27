@@ -66,8 +66,12 @@ class HomeController extends Controller
                             ->where('date_prochaine',$today)
                             ->where('etat',"=","En cours")
                             ->get();
+        $allmpreventives = Mpreventive::where('executeur',Auth::user()->id)
+                    ->where('date_prochaine','!=',$today)
+                    ->where('etat',"=","En cours")
+                    ->get();
         $users = User::all();
-        return view('homet')->with('users',$users)->with('messages',$messages)->with('notifications',$notifications)->with('equipements',$equipements)->with('ointerventions',$ointerventions)->with('mpreventives',$mpreventives);
+        return view('homet')->with('allmpreventives',$allmpreventives)->with('users',$users)->with('messages',$messages)->with('notifications',$notifications)->with('equipements',$equipements)->with('ointerventions',$ointerventions)->with('mpreventives',$mpreventives);
     }
     
 }

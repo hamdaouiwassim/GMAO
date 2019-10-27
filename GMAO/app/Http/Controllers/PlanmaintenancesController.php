@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Ointervention;
+use Auth;
+use App\user;
+use App\Message;
 use App\Maintenance;
 use App\Mpreventive;
+use App\Notification;
+use App\Ointervention;
+use Illuminate\Http\Request;
 
 class PlanmaintenancesController extends Controller
 {

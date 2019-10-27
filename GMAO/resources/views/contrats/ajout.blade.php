@@ -57,7 +57,7 @@
 						@if( count($notifications) > 0 ) 
 						<ul class="dropdown-menu notifications">
 							@foreach ($notifications as $not )
-							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="notification/seen/{{ $not->id }}">Lue</a></li>
+							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="/notification/seen/{{ $not->id }}">Lue</a></li>
 							@endforeach
 							
 						</ul>
@@ -235,12 +235,22 @@
 																</div>
 																
                                                                 <div class="col-md-3">
-                                                                <label> Ordre du travaille </label>
+                                                                <label> Description du contrat </label>
                                                                 
                                                                 </div>
                                                                 <div class="col-md-9">
 																<textarea class="form-control" name="note" placeholder="tapper un note içi"></textarea>
 																</div>
+																
+																<div class="col-md-3">
+                                                                <label> Cout de maintenance </label>
+                                                                
+                                                                </div>
+                                                                <div class="col-md-9">
+																<input style="width:100%;margin-bottom:10px;" type="number" step="0.1" class="form-control" name="cout" placeholder="tapper le cout içi">
+																
+																</div>
+																
 															
                                                             </div>
                                                                

@@ -23,32 +23,48 @@
 							<i class="lnr lnr-envelope"></i>
 							
 						
-							<span class="badge bg-danger"> 2 </span>
+							<span class="badge bg-danger"> {{ count($messages) }} </span>
 							 
 						</a>
 						
 						
 						<ul class="dropdown-menu notifications">
-							<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>jhbzfqsghjq kjjsqhvfiu </a></li>
+							@foreach($messages as $message)
+							<li><a href="/conversation/{{ $message->idsender }}" class="notification-item"><span class="dot bg-warning"></span> 
+							@foreach($users as $user)
+								@if ( $user->id == $message->idsender)
+									{{ $user->name }}	: 
+								@endif
+							@endforeach
+							
+							
+							<span class="text-danger">" {{ $message->content}} "</span> </a></li>
+							@endforeach
 							<li><a href="/messages" class="more">Ouvrir la boite de messagerie</a></li>
 						</ul>
 				
 						
 					</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
-								<i class="lnr lnr-alarm"></i>
-								<span class="badge bg-danger">5</span>
-							</a>
-							<ul class="dropdown-menu notifications">
-								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
-								<li><a href="#" class="more">See all notifications</a></li>
-							</ul>
-						</li>
+			
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+							<i class="lnr lnr-alarm"></i>
+							
+						@if( count($notifications) > 0 ) 
+							<span class="badge bg-danger">{{ count($notifications) }} </span>
+							@endif 
+						</a>
+						
+						@if( count($notifications) > 0 ) 
+						<ul class="dropdown-menu notifications">
+							@foreach ($notifications as $not )
+							<li style="display:flex;"><a  class="notification-item"><span class="dot bg-warning"></span>{{ $not->content }}</a><a style="position:relative;float:right;" href="/notification/seen/{{ $not->id }}">Lue</a></li>
+							@endforeach
+							
+						</ul>
+				
+						@endif 		
+					</li>
 						
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -76,11 +92,13 @@
 		<div id="sidebar-nav" class="sidebar">
 			<div class="sidebar-scroll">
 				<nav>
-                @if (Auth::user()->role == "Technicien")
+				@if (Auth::user()->role == "Technicien")
+				<ul class="nav">
 						<li><a href="/homet" ><i class="lnr lnr-home"></i> <span>Ordre du travaille</span></a></li>
 						<li><a href="/profile" class="active"><i class="lnr lnr-user"></i> <span>Compte</span></a></li>
-						
+				</ul>		
 					@else
+					<ul>
                         <li><a href="/home" ><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 						<li><a href="/profile" class="active"><i class="lnr lnr-user"></i> <span>Compte</span></a></li>
 						<li>
@@ -178,7 +196,67 @@
 							<!-- TABLE STRIPED -->
 							<div class="panel">
 								<div class="panel-heading">
-									<h3 class="panel-title"> Ordre du travaille </h3>
+									<h3 class="panel-title">  <span class="label label-primary"> {{ $mp->numero }} </span> </h3>
+								</div>
+								<div class="panel-body">
+								<h4> Machine :  
+								@foreach ($equipements as $equipement )
+									@if ($mp->idmachine == $equipement->id )
+									{{ $equipement->name }}
+									@endif
+									
+								@endforeach </h4>
+								<h4>Intervalle : Chaque  {{ $mp->intervalle }} {{ $mp->umesure }}</h4>
+								<h4> Periode : de  " {{ $mp->date_debut }} " jusqu'a " {{ $mp->date_fin }} "  </h4>
+								<hr>
+								<h4>Historiques :</h4>
+								<table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Etat</th>
+                                                        <th>Date de maintenance</th>
+                                                        
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php $i=0; ?>
+												@if (count($maintenances) > 0 )
+													@foreach($maintenances as $mt)
+													<?php $i++; ?>
+													<tr>
+														<td><a href="/m/{{ $mt->id  }}">{{  $mp->numero }} ( {{ $i  }} ) </a></td> 
+														<td>
+													@if ($mt->etat == "refusée")
+													<span class="label label-danger">
+													@elseif( $mt->etat == "programmé"  )
+													<span class="label label-info">
+													@elseif( $mt->etat == "En attente de validation" || $mt->etat == "En cours"  )
+													<span class="label label-warning">
+													@else
+													<span class="label label-success">
+
+													@endif
+														
+														
+														{{ $mt->etat }}</span></td>
+														<td>{{ $mt->date_maintenance }}</td>
+														
+														
+													</tr>
+													@endforeach 
+												@endif
+                                                </tbody>
+                                            </table>
+                                       
+                                      
+                                   
+                                </div>
+                    	</div>
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title"> Ordre du travaille d'Aujourd'hui : ( <?php echo date('Y-m-d' ); ?>) </h3>
 								</div>
 								<div class="panel-body">
                                 
