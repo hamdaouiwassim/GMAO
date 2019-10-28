@@ -122,7 +122,8 @@ class EquipementsController extends Controller
         $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $departments = Department::all();
         $equipement = Equipement::find($id);
-        return view('Equipements.equipement')->with('equipement',$equipement)->with('departments',$departments)->with('messages',$messages)->with('notifications',$notifications); 
+        $users = User::all();
+        return view('Equipements.equipement')->with('users',$users)->with('equipement',$equipement)->with('departments',$departments)->with('messages',$messages)->with('notifications',$notifications); 
     }
 
     /**

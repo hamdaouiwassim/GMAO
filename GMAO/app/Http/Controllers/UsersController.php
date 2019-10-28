@@ -151,7 +151,8 @@ class UsersController extends Controller
         $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $user = User::find($id);
         $departments = Department::all();
-        return view('users.modif')->with('departments',$departments)->with('user',$user)->with('messages',$messages)->with('notifications',$notifications);
+        $users = User::all();
+        return view('users.modif')->with('departments',$departments)->with('user',$user)->with('users',$users)->with('messages',$messages)->with('notifications',$notifications);
     }
     public function profile(){
         $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
@@ -203,7 +204,8 @@ class UsersController extends Controller
         $activite->iduser = Auth::user()->id;
         $activite->description = "modifier les cordonnes de l'utilisateur ".$request->input("username");
         $activite->save();
-        return redirect("/user/".$user->id)->with('adduser',"success")->with('messages',$messages)->with('notifications',$notifications);
+        $users = User::all();
+        return redirect("/user/".$user->id)->with('adduser',"success")->with('users',$users)->with('messages',$messages)->with('notifications',$notifications);
     }
 
     /**
