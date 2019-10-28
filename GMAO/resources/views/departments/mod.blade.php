@@ -8,7 +8,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html">TAVGMAO</a>
+				<a href="/">TAVGMAO</a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -201,7 +201,7 @@
 										<i class="fa fa-check-circle"></i> Utilisateur ajouter avec success <a href="/users" class="btn btn-sm btn-default"> Consulter liste des utilisateurs </a>
 								</div>
                                 @endif
-                                <form action='/department/mod' method="POST" >
+                                <form action='/department/mod/{{$department->id}}' method="POST" >
                                                         {{ csrf_field() }} 
                                          
                                                             <div class="row">

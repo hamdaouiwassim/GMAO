@@ -46,12 +46,17 @@ class MpreventivesController extends Controller
         $mp->idmachine = $request->input("machine");
         $mp->umesure = $request->input("unite_mesure");
         $mp->execution = $request->input("execution");
+        if ($request->input("execution") == "Interne"){
+            $mp->executeur = $request->input("executeur");
+        }else{
+            $mp->executeur = null;
+        }
         $mp->intervalle = $request->input("intervalle");
         $mp->date_debut = $request->input("date_debut");
         $mp->date_fin = $request->input("date_fin");
         $mp->date_prochaine = $dateprochaine ;
         $mp->etat = "En cours";
-        $mp->executeur = $request->input("executeur");
+        
         $mp->save();
 
         while( $dateprochaine <= $datefin ){

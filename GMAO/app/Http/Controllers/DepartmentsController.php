@@ -47,7 +47,14 @@ class DepartmentsController extends Controller
         $department = Department::find($id);
         return view('departments.mod')->with('department',$department)->with('users',$users)->with('messages',$messages)->with('notifications',$notifications);
     }
-    public function update(Request $request){
+    public function update(Request $request,$id){
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
+        $department = Department::find($id);
+        $department->name = $request->input('nom') ;
+        $department->description = $request->input('description') ;
+        $department->save();
+        return redirect('/departments');
 
     }
     public function filter(Request $request)
@@ -58,5 +65,13 @@ class DepartmentsController extends Controller
          $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
          $departments = Department::where("name",'like','%'.$request->input("searchdepartment").'%')->get();
          return view('departments.index')->with('messages',$messages)->with('users',$users)->with('departments',$departments)->with('messages',$messages)->with('notifications',$notifications);
+    }
+    public function destroy($id)
+    {
+         //
+         $department = Department::find($id);
+         $department->delete();
+         return redirect('/departments');
+         
     }
 }

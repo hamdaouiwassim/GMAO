@@ -8,7 +8,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html">TAVGMAO</a>
+				<a href="/">TAVGMAO</a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -237,7 +237,7 @@
                                                     <td>{{ $dep->name }}</td>
                                                     <td>{{ $dep->description }}</td>
                                                    @if (Auth::user()->role == "Administrateur")
-                                                    <td><a class='btn btn-primary' href="/department/change/{{ $dep->id }}"><i class="lnr lnr-pencil"></i> Modifier </a> <a class='btn btn-danger' href=""><i class="lnr lnr-trash"></i>Supprimer</a></td>
+                                                    <td><a class='btn btn-primary' href="/department/change/{{ $dep->id }}"><i class="lnr lnr-pencil"></i> Modifier </a> <a class='btn btn-danger' href="/department/delete/{{ $dep->id  }}"><i class="lnr lnr-trash"></i>Supprimer</a></td>
                                                     @endif
                                                 </tr>
                                                 @endforeach 

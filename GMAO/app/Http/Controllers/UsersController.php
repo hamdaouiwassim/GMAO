@@ -96,7 +96,10 @@ class UsersController extends Controller
         $user->email = $request->input("usermail");
         $user->password = Hash::make($request->input("userpw"));
         $user->role =  $request->input("role");
-        $user->iddep =  $request->input("iddep");
+        if ($request->input("iddep") != ""){
+            $user->iddep =  $request->input("iddep");
+        }
+        
         $user->save();
         $activite = new Activite();
         $activite->iduser = Auth::user()->id;
@@ -115,7 +118,7 @@ class UsersController extends Controller
         if ( $user->password != $request->input("userpw") ){
             $user->password = Hash::make($request->input("userpw"));
         }
-        
+        $user->iddep =  $request->input("iddep");
         $user->description =  $request->input("description");
         $user->birthdate =  $request->input("birthdate");
         $user->phone =  $request->input("phone");
@@ -127,7 +130,7 @@ class UsersController extends Controller
             $avatar->move($destinationPath,$avatarname);
             $user->avatar = $avatarname;
         }
-        $user->save();
+        $user->update();
         $activite = new Activite();
         $activite->iduser = Auth::user()->id;
         $activite->description = "modifier les cordonnes de l'utilisateur ".$request->input("username");
@@ -144,9 +147,11 @@ class UsersController extends Controller
     public function show($id)
     {
         //
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $user = User::find($id);
-        
-        return view('users.modif')->with('user',$user);
+        $departments = Department::all();
+        return view('users.modif')->with('departments',$departments)->with('user',$user)->with('messages',$messages)->with('notifications',$notifications);
     }
     public function profile(){
         $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
@@ -159,7 +164,8 @@ class UsersController extends Controller
         
         $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
         $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
-        return view('users.profilemod')->with('messages',$messages)->with('notifications',$notifications); 
+        $departments = Department::all();
+        return view('users.profilemod')->with('departments',$departments)->with('messages',$messages)->with('notifications',$notifications); 
     }
 
     /**
@@ -183,18 +189,21 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $messages = Message::where('iddestination',Auth::user()->id)->where('stat',"unread")->get();
+        $notifications = Notification::where('iduser',Auth::user()->id)->where('stat',"unseen")->get();
         $user =User::find($id);
         $user->name = $request->input("username") ;
         $user->matricule = $request->input("usermat") ;
         $user->email = $request->input("usermail");
         $user->password = Hash::make($request->input("userpw"));
         $user->role =  $request->input("role");
+        $user->iddep =  $request->input("iddep");
         $user->save();
         $activite = new Activite();
         $activite->iduser = Auth::user()->id;
         $activite->description = "modifier les cordonnes de l'utilisateur ".$request->input("username");
         $activite->save();
-        return redirect("/user/".$user->id)->with('adduser',"success");
+        return redirect("/user/".$user->id)->with('adduser',"success")->with('messages',$messages)->with('notifications',$notifications);
     }
 
     /**

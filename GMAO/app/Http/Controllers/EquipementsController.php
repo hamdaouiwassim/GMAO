@@ -99,7 +99,7 @@ class EquipementsController extends Controller
         $equipement->modele=$request->input("modele");
         $equipement->description=$request->input("description");
         $equipement->numero=$request->input("numero");
-        $equipement->emplacement=$request->input("emplacement");
+        $equipement->emplacement=$request->input("iddep");
         $equipement->photo=$photoname;
         $equipement->document = $documentname;
         $equipement->save();
@@ -159,7 +159,7 @@ class EquipementsController extends Controller
         $equipement->modele=$request->input("modele");
         $equipement->description=$request->input("description");
         $equipement->numero=$request->input("numero");
-        $equipement->emplacement=$request->input("emplacement");
+        $equipement->emplacement=$request->input("iddep");
         if ($photo != NULL){
                
                 $photoname = uniqid().".".File::extension($photo->getClientOriginalName());

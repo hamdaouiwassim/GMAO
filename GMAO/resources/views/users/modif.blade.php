@@ -8,7 +8,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html">TAVGMAO</a>
+				<a href="/">TAVGMAO</a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -66,7 +66,12 @@
 					</li>
 						
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ asset('img/user.png') }}" class="img-circle" alt="Avatar"> <span>{{ Auth::user()->name }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							@if (Auth::user()->avatar == NULL )
+								<img src=" {{ asset('img/user.png') }}" class="img-circle" alt="Avatar">
+								@else 
+								<img src=" {{ asset('uploads/profile/'.Auth::user()->avatar) }}" class="img-circle" alt="Avatar">	
+								@endif <span>{{ Auth::user()->name }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
 								
 								<li><a href="/setting"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
@@ -195,7 +200,7 @@
 							<div class="panel">
                                 
 								<div class="panel-heading">
-									<h3 class="panel-title"> Modifier : <span class="text-primary">{{ $user->name }}</span>   </h3>
+									<h3 class="panel-title"> Modification : <span class="text-primary">{{ $user->name }}</span>   </h3>
 								</div>
                                 
 								<div class="panel-body">
@@ -255,7 +260,7 @@
                                                                 
                                                                 </div>
                                                                 <div class="col-md-9">
-                                                                <select name="role" class="form-control">
+                                                                <select name="role" style="width:100%;margin-bottom:10px;" class="form-control">
                                                                 @if ( $user->role == "Administrateur")
                                                                     <option>-- selectionner un role --</option>
                                                                     <option selected value='Administrateur'>Administrateur</option>
@@ -273,6 +278,23 @@
                                                                     <option selected value='Technicien'>Technicien</option>
                                                                 
                                                                 @endif
+                                                                </select> 
+																</div>
+																<div class="col-md-3">
+                                                                <label> Departement </label>
+                                                                
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                <select name="iddep" class="form-control">
+																	<option>-- selectionner un departement --</option>
+																	@foreach( $departments as $dep )
+																	@if ($dep->id == $user->iddep )
+																	<option selected value='{{ $dep->id }}'>{{ $dep->name }}</option>
+																	@else
+																	<option value='{{ $dep->id }}'>{{ $dep->name }}</option>
+																	@endif
+                                                                   
+                                                                    @endforeach
                                                                 </select> 
                                                                 </div>
                                                             </div>

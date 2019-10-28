@@ -32,7 +32,12 @@ class OinterventionsController extends Controller
        $oi->type_panne = $request->input("type_panne");
        $oi->priorite = $request->input("priorite");
        $oi->execution = $request->input("execution");
-       $oi->destinateur = $request->input("iduser");
+       if ( $request->input("execution") == "Interne" ){
+        $oi->destinateur = $request->input("iduser");
+       }else{
+        $oi->destinateur = null;
+       }
+       
        $oi->commentaire = $request->input("commentaire");
        $oi->etat = "demandée";
        $oi->save();

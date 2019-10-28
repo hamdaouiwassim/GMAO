@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+Route::get('/','HomeController@index')->name('home')->middleware('auth');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
@@ -100,6 +98,7 @@ Route::post('/addmessage',"MessagesController@store")->middleware('auth');
 Route::post('/department/filter',"DepartmentsController@filter")->middleware('auth');
 Route::get('/department/create',"DepartmentsController@create")->middleware('auth');
 Route::post('/department/add',"DepartmentsController@add")->middleware('auth');
-Route::post('/department/mod',"DepartmentsController@update")->middleware('auth');
+Route::post('/department/mod/{id}',"DepartmentsController@update")->middleware('auth');
 Route::get('/department/change/{id}',"DepartmentsController@change")->middleware('auth');
 Route::get('/departments',"DepartmentsController@index")->middleware('auth');
+Route::get('/department/delete/{id}',"DepartmentsController@destroy")->middleware('auth');

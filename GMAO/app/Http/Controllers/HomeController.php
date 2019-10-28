@@ -44,10 +44,20 @@ class HomeController extends Controller
         $diec = Ointervention::where('etat',"En cours")->count();
         $dieav = Ointervention::where('etat',"En attente de validation")->count();
         $dit = Ointervention::where('etat',"terminé")->count();
-        $diperc = round( ( $dinc / $diall ) * 100 , 2) ;
-        $dirperc = round( ( $dir / $diall ) * 100 , 2);
-        $diecperc = round( ( $diec / $diall ) * 100 + ( $dieav / $diall ) * 100, 2);
-        $ditperc = round( ( $dit / $diall ) * 100, 2);
+        if ($diall > 0 ){
+            $diperc = round( ( $dinc / $diall ) * 100 , 2) ;
+            $dirperc = round( ( $dir / $diall ) * 100 , 2);
+            $diecperc = round( ( $diec / $diall ) * 100 + ( $dieav / $diall ) * 100, 2);
+            $ditperc = round( ( $dit / $diall ) * 100, 2);
+        }else{
+            $diperc = 0 ;
+            $dirperc = 0 ;
+            $diecperc = 0;
+            $ditperc = 0 ;
+
+        }
+       
+        
         //echo $diperc ;
 
         return view('home')->with('notifications',$notifications)->with('messages',$messages)->with('ditperc',$ditperc)->with('diecperc',$diecperc)->with('dirperc',$dirperc)->with('diperc',$diperc)->with('users',$users)->with('activities',$activities)->with('nbrtechniciens',$nbrtechniciens)->with('nbrchefsec',$nbrchefsec);

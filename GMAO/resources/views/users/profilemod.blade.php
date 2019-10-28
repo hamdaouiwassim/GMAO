@@ -8,7 +8,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html">TAVGMAO</a>
+				<a href="/">TAVGMAO</a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -273,7 +273,7 @@
                                                                     <input style="width:100%;margin-bottom:10px;" name="avatar" class="form-control" type="file" >
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                <label> Date de naissance utilisateur </label>
+                                                                <label> Date de naissance  </label>
                                                                 
                                                                 </div>
                                                                 <div class="col-md-9">
@@ -292,8 +292,28 @@
                                                                 </div>
                                                                 <div class="col-md-9">
                                                                     <textarea style="width:100%;margin-bottom:10px;height:100px" class="form-control" name="description">{{Auth::user()->description}}</textarea>
-                                                                </div>
+																</div>
+																
+																<div class="col-md-3">
+                                                                <label> Departement </label>
+                                                                
+																</div>
+																
+                                                                <div class="col-md-9">
+                                                                	<select name="iddep" class="form-control">
+																		<option>-- selectionner un departement --</option>
+																			@foreach( $departments as $dep )
+																			@if ( $dep->id == Auth::user()->iddep )
+																			<option selected value='{{ $dep->id }}'>{{ $dep->name }}</option>
+																			@else
+																			<option value='{{ $dep->id }}'>{{ $dep->name }}</option>
+																			@endif
+                                                                   
+                                                                    		@endforeach
+                                                                	</select> 
                                                             </div>
+															</div>
+															
                                                                
                                                            
                                                             

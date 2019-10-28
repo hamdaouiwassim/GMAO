@@ -8,7 +8,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html">TAVGMAO</a>
+				<a href="/">TAVGMAO</a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -255,7 +255,12 @@
                                                                 <select name="iddep" class="form-control">
 																	<option>-- selectionner un departement --</option>
 																	@foreach( $departments as $dep )
-                                                                    <option value='{{ $dep->id }}'>{{ $dep->name }}</option>
+																	@if ($dep->id == $equipement->emplacement )
+																	<option selected value='{{ $dep->id }}'>{{ $dep->name }}</option>
+																	@else
+																	<option value='{{ $dep->id }}'>{{ $dep->name }}</option>
+																	@endif
+                                                                    
                                                                     @endforeach
                                                                 </select> 
                                                                 </div>

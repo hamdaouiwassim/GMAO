@@ -8,7 +8,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html">TAVGMAO</a>
+				<a href="/">TAVGMAO</a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -262,7 +262,7 @@
                                                                 </div>
                                                                 <div class="col-md-9">
                                                                 <select name="iddep" class="form-control">
-																	<option>-- selectionner un departement --</option>
+																	<option value="">-- selectionner un departement --</option>
 																	@foreach( $departments as $dep )
                                                                     <option value='{{ $dep->id }}'>{{ $dep->name }}</option>
                                                                     @endforeach
